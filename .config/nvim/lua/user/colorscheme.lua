@@ -1,7 +1,10 @@
-local colorscheme = "molokai"
-
-local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
-if not status_ok then
-  vim.notify("colorscheme " .. colorscheme .. " not found!")
-  return
-end
+-- tries to set colorscheme and if it isn't possible it will use default
+vim.cmd [[
+try
+  colorscheme nord
+  set background=dark
+catch /^Vim\%((\a\+)\)\=:E185/
+  colorscheme default
+  set background=dark
+endtry
+]]
