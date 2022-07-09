@@ -1,8 +1,14 @@
-function setup(lspconfig, on_attach, lsp_flags, capabilities)
+function Setup(lspconfig, on_attach, lsp_flags, capabilities)
   local langs_list = {
     "sumneko_lua",
     "pyright",
     "tsserver",
+    "jsonls",
+
+    -- web servers
+    "html",
+    "cssls",
+    "emmet_ls",
   }
 
   for _, lsp in ipairs(langs_list) do
@@ -17,5 +23,5 @@ function setup(lspconfig, on_attach, lsp_flags, capabilities)
 
 end
 
-return setup
+return Setup
 
