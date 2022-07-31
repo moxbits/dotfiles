@@ -46,6 +46,7 @@ return packer.startup(function(use)
 	use { "wbthomason/packer.nvim" } -- Have packer manage itself
 
   -- colorscheme
+  use { "overcache/NeoSolarized" }
   use { "arcticicestudio/nord-vim" }
 
   -- autopair 
@@ -64,6 +65,11 @@ return packer.startup(function(use)
   use {
     "nvim-lualine/lualine.nvim",
     requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+  }
+
+  use {
+    "folke/which-key.nvim",
+    config = function() require("which-key").setup() end
   }
 
   -- telescope

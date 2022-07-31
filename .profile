@@ -6,6 +6,12 @@ alias nv=nvim
 export PROJS=~/Documents/Projects
 export TESTS=~/Documents/CodeTemple
 
+# ------- lsd -------
+alias ll="lsd --group-dirs first -l"
+alias la="lsd --group-dirs first -la"
+alias lt="lsd --group-dirs first --tree"
+# ------- end -------
+
 # ------- fzf -------
 # fd - cd to selected directory
 fd() {
