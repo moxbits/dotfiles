@@ -21,9 +21,9 @@ local options = {
   relativenumber = true,                  -- set relative numbered lines
   numberwidth = 4,                         -- set number column width to 2 {default 4}
   cursorline = true,                       -- highlight the current line
-  wrap = false,                            -- display lines as one long line
+  wrap = true,                            -- display lines as one long line
   ruler = false,
-  
+
   -- ui
   mouse = "a",                             -- allow the mouse to be used in neovim
   termguicolors = true,                    -- set term gui colors (most terminals support this)
