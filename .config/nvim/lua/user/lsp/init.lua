@@ -19,3 +19,4 @@ on_attach, lsp_flags, capabilities = require("user.lsp.config")
 
 require("user.lsp.servers")(lspconfig, on_attach, lsp_flags, capabilities )
 
+require("user.lsp.null-ls")

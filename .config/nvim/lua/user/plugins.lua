@@ -84,6 +84,8 @@ return packer.startup(function(use)
     "neovim/nvim-lspconfig",
   }
 
+  use { "jose-elias-alvarez/null-ls.nvim" } -- for formatters and linters
+
   -- completion
   use { "hrsh7th/nvim-cmp" }       -- Autocompletion plugin
   use { "hrsh7th/cmp-nvim-lsp" }   -- LSP source for nvim-cmp
