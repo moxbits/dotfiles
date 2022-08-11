@@ -6,6 +6,9 @@ alias nv=nvim
 export PROJS=~/Documents/Projects
 export TESTS=~/Documents/CodeTemple
 
+alias toprojs="cd $PROJS"
+alias totests="cd $TESTS"
+
 # ------- lsd -------
 alias ll="lsd --group-dirs first -l"
 alias la="lsd --group-dirs first -la"
