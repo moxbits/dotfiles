@@ -112,4 +112,3 @@ bindkey -v
 
 source ~/.profile
 
-source /home/mohammad/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

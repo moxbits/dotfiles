@@ -1,3 +1,8 @@
 require "xac.core"
+require "xac.keymaps"
 require "xac.plugins"
+require "xac.lualine"
+require "xac.telescope"
+require "xac.project"
 require "xac.mason"
+require "xac.cmp"

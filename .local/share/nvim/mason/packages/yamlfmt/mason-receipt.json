@@ -1,0 +1,1 @@
+{"name":"yamlfmt","schema_version":"1.0","primary_source":{"release":"v0.6.0","type":"github_release_file","file":"https:\/\/github.com\/google\/yamlfmt\/releases\/download\/v0.6.0\/yamlfmt_0.6.0_Linux_x86_64.tar.gz","repo":"google\/yamlfmt"},"links":{"bin":{"yamlfmt":"yamlfmt"}},"secondary_sources":[],"metrics":{"start_time":1667729638462,"completion_time":1667729648337}}
