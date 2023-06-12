@@ -23,6 +23,18 @@ fd() {
                   -o -type d -print 2> /dev/null | fzf +m) &&
   cd "$dir"
 }
+
+alias fzn="nvim \$(fzf)"
+
+fsn() {
+  result_str=`rg -n $1 | fzf`
+  split_result=(${(s/:/)result_str})
+  file_path=$split_result[1]
+  linenumber=$split_result[2]
+  (( linenumber -= 1))
+  nvim $file_path +$linenumber +"/$1"
+}
+
 # ------- end -------
 
 # ------- rust --------

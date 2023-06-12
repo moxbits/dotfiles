@@ -1,1 +1,0 @@
-{"name":"yamllint","schema_version":"1.0","primary_source":{"package":"yamllint","type":"pip3"},"links":{"bin":{"yamllint":"venv\/bin\/yamllint"}},"secondary_sources":[],"metrics":{"start_time":1667729592771,"completion_time":1667729605245}}

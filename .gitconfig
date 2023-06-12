@@ -7,3 +7,5 @@
 [user]
 	email = moh.elahii@gmail.com
 	name = Mohammad Elahi
+[credential]
+	helper = store

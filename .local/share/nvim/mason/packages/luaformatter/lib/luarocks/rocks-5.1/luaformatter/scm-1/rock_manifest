@@ -1,9 +1,0 @@
-rock_manifest = {
-   bin = {
-      ["lua-format"] = "a6befa6fe358c88d9e8b2949d678fbed"
-   },
-   docs = {
-      ["Style-Config.md"] = "b1d77e08c97404130e05fcef3d466192"
-   },
-   ["luaformatter-scm-1.rockspec"] = "120aa8f87f7e08a66adca8f53d5892de"
-}

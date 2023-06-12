@@ -1,1 +1,0 @@
-{"name":"typescript-language-server","schema_version":"1.0","primary_source":{"package":"typescript-language-server","type":"npm"},"links":{"bin":{"typescript-language-server":"node_modules\/.bin\/typescript-language-server"}},"secondary_sources":[{"package":"typescript","type":"npm"}],"metrics":{"start_time":1667729254678,"completion_time":1667729275219}}
