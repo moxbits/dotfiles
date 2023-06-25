@@ -45,8 +45,9 @@ return packer.startup(function(use)
 
 	-- My plugins here
 
-	-- night owl theme
+	-- Themes
 	use("haishanh/night-owl.vim")
+  use("gbprod/nord.nvim")
 
 	-- treesitter highlightings
 	use("nvim-treesitter/nvim-treesitter")
