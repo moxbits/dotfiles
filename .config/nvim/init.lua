@@ -33,3 +33,6 @@ require "xac.git"
 
 -- which key 
 require "xac.whichkey"
+
+-- lualine
+require "xac.lualine"

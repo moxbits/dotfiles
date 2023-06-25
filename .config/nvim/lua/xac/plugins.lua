@@ -98,9 +98,14 @@ return packer.startup(function(use)
 	-- emmet
 	use("mattn/emmet-vim")
 
+  -- lualine
+  use("nvim-tree/nvim-web-devicons")
+  use("nvim-lualine/lualine.nvim")
+
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if packer_bootstrap then
 		require("packer").sync()
 	end
+
 end)
