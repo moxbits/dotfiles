@@ -48,6 +48,7 @@ return packer.startup(function(use)
 	-- Themes
 	use("haishanh/night-owl.vim")
   use("gbprod/nord.nvim")
+  use("ellisonleao/gruvbox.nvim")
 
 	-- treesitter highlightings
 	use("nvim-treesitter/nvim-treesitter")
