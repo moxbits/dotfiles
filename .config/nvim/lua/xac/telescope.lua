@@ -23,3 +23,5 @@ vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
 telescope.setup({})
 
 telescope.load_extension("projects")
+
+vim.api.nvim_set_keymap("n", "<Space>fr", ":Telescope resume<CR>", { silent = true })
