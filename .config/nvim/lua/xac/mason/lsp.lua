@@ -2,15 +2,9 @@ local vim = vim or {}
 
 -- lsp configs
 local ok_lsp, lspconfig = pcall(require, "lspconfig")
-local ok_mason_lsp, mason_lsp = pcall(require, "mason-lspconfig")
 
 if not ok_lsp then
 	print("lsp plugin is not initialized. maybe it is not installed")
-	return
-end
-
-if not ok_mason_lsp then
-	print("mason lsp plugin is not initialized. maybe it is not installed")
 	return
 end
 
@@ -33,10 +27,6 @@ local servers = {
 	"emmet_ls",
 	"intelephense",
 }
-
-mason_lsp.setup({
-	ensure_installed = servers,
-})
 
 for _, server in ipairs(servers) do
 	if server == "intelephense" then

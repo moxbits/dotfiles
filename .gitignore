@@ -1,3 +1,5 @@
 .config/nvim/plugins/
 .config/nvim/plugin/
+.config/gh/
+.config/wslu/
 .local/share/nvim/
