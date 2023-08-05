@@ -15,11 +15,11 @@ end
 
 local packer_bootstrap = ensure_packer()
 
--- Autocommand that reloads neovim whenever you save the plugins.lua file
+-- Autocommand that reloads neovim whenever you save the packer.lua file
 vim.cmd([[
   augroup packer_user_config
     autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
+    autocmd BufWritePost packer.lua source <afile> | PackerSync
   augroup end
 ]])
 
@@ -45,11 +45,6 @@ return packer.startup(function(use)
 
 	-- My plugins here
 
-	-- Themes
-	use("haishanh/night-owl.vim")
-  use("gbprod/nord.nvim")
-  use("ellisonleao/gruvbox.nvim")
-
 	-- treesitter highlightings
 	use("nvim-treesitter/nvim-treesitter")
 	use("p00f/nvim-ts-rainbow")
@@ -65,17 +60,14 @@ return packer.startup(function(use)
 
 	-- mason lsp, dap, linter and formatter manager
 	use("williamboman/mason.nvim")
+  use("WhoIsSethDaniel/mason-tool-installer.nvim")
 	use("williamboman/mason-lspconfig.nvim")
 	use("jay-babu/mason-null-ls.nvim")
 	use("neovim/nvim-lspconfig")
 
-	-- autocompletion plugins
+	-- snippets and boilerplates
 	use("L3MON4D3/LuaSnip")
-	use("hrsh7th/cmp-nvim-lsp")
-	use("hrsh7th/cmp-buffer")
-	use("hrsh7th/cmp-path")
-	use("hrsh7th/nvim-cmp")
-	use("hrsh7th/cmp-vsnip")
+	use("mattn/emmet-vim")
 
 	-- commenter
 	use("numToStr/Comment.nvim")
@@ -90,18 +82,8 @@ return packer.startup(function(use)
 	-- git integration
 	use("lewis6991/gitsigns.nvim")
 
-	-- project manager
-	use("ahmedkhalf/project.nvim")
-
 	-- which key
 	use("folke/which-key.nvim")
-
-	-- emmet
-	use("mattn/emmet-vim")
-
-  -- lualine
-  use("nvim-tree/nvim-web-devicons")
-  use("nvim-lualine/lualine.nvim")
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins

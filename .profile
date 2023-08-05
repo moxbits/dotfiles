@@ -1,6 +1,7 @@
+export EDITOR='nvim'
 
-# useful aliases 
 alias nv=nvim
+alias lg=lazygit
 
 # useful paths
 export PROJS=~/Documents/Projects

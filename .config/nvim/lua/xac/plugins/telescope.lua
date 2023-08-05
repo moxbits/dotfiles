@@ -20,8 +20,12 @@ vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
 vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
 
 -- init telescope
-telescope.setup({})
-
-telescope.load_extension("projects")
+telescope.setup({
+	pickers = {
+		find_files = {
+			hidden = true, -- Show hidden files and folders
+		},
+	},
+})
 
 vim.api.nvim_set_keymap("n", "<Space>fr", ":Telescope resume<CR>", { silent = true })
