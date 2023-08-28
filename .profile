@@ -1,5 +1,6 @@
 export EDITOR='nvim'
 
+alias vi=nvim
 alias nv=nvim
 alias lg=lazygit
 
@@ -67,5 +68,8 @@ fi
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
+
+# adding composer binaries to the path
+export PATH="$PATH:$HOME/.composer/vendor/bin"
 
 # ------- end -------

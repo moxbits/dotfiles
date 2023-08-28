@@ -1,5 +1,3 @@
-local vim = vim or {}
-
 local opts = { noremap = true, silent = true }
 
 -- Shorten function name
@@ -20,14 +18,20 @@ vim.g.maplocalleader = " "
 
 -- Normal --
 -- Explorer
-keymap("n", "<leader>e", ":Lex<CR>", opts)
+keymap("n", "<leader>e", ":Exp<CR>", opts)
+
+-- Window Navigation
+keymap("n", "<C-h>", "<C-w>h", opts)
+keymap("n", "<C-j>", "<C-w>j", opts)
+keymap("n", "<C-k>", "<C-w>k", opts)
+keymap("n", "<C-l>", "<C-w>l", opts)
 
 -- Navigate buffers
 keymap("n", "<S-l>", ":bnext<CR>", opts)
 keymap("n", "<S-h>", ":bprevious<CR>", opts)
 
--- Delete line without yanking
-keymap("n", "<leader>d", '"_dd', opts)
+-- Delete without yanking
+keymap("n", "<leader>d", '"_d', opts)
 
 -- Move text up and down
 keymap("n", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
@@ -58,9 +62,7 @@ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
 -- Custom --
 keymap("n", "<esc><esc>", "<cmd>nohlsearch<cr>", opts)
-
--- defining customized commands for neovim
-vim.cmd("command! Fmt lua vim.lsp.buf.format()")
+keymap("n", "<leader>p", "<cmd>Format<cr>", opts)
 
 -- set spelling for english
 vim.bo.spelllang = "en"

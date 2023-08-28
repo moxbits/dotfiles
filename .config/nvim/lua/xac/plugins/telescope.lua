@@ -1,5 +1,3 @@
-local vim = vim or {}
-
 local ok, telescope = pcall(require, "telescope")
 local ok_builtins, builtin = pcall(require, "telescope.builtin")
 

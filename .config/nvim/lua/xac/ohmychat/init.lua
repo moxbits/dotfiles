@@ -1,1 +1,0 @@
--- a personal chatgpt copilot plugin for coding in neovim

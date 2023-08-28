@@ -1,5 +1,4 @@
-local vim = vim or {}
-
+vim.opt.laststatus = 3 -- one global status line
 vim.opt.backup = false -- creates a backup file
 vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
 vim.opt.completeopt = { "menuone", "noselect" } -- mostly just for cmp
@@ -29,6 +28,8 @@ vim.opt.cursorline = true -- highlight the current line
 vim.opt.number = true -- set numbered lines
 vim.opt.relativenumber = true -- set relative numbered lines
 vim.opt.guifont = "monospace:h17" -- the font used in graphical neovim applications
+
+vim.g.netrw_browse_split = 0
 
 vim.cmd("set whichwrap+=<,>,[,],h,l")
 vim.cmd([[set iskeyword+=-]])

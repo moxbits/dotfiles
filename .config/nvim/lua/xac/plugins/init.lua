@@ -1,8 +1,5 @@
-require "xac.plugins.packer"
-require "xac.plugins.treesitter"
-require "xac.plugins.autopair"
-require "xac.plugins.snippets"
-require "xac.plugins.comment"
-require "xac.plugins.telescope"
-require "xac.plugins.gitsigns"
-require "xac.plugins.whichkey"
+require("xac.plugins.packer")
+require("xac.plugins.treesitter")
+require("xac.plugins.snippets")
+require("xac.plugins.telescope")
+require("xac.plugins.extras")

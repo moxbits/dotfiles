@@ -1,5 +1,3 @@
-local vim = vim or {}
-
 local ensure_packer = function()
 	local fn = vim.fn
 	local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
@@ -43,52 +41,44 @@ packer.init({
 return packer.startup(function(use)
 	use("wbthomason/packer.nvim")
 
-	-- My plugins here
+	-- lsp
+	use("neovim/nvim-lspconfig")
+
+	-- formatting
+	use("mhartington/formatter.nvim")
 
 	-- treesitter highlightings
 	use("nvim-treesitter/nvim-treesitter")
-	use("p00f/nvim-ts-rainbow")
 
-	-- autopairing plugin
-	use("windwp/nvim-autopairs")
-
-	-- easy-motion
-	use("easymotion/vim-easymotion")
-
-	-- null-ls
-	use("jose-elias-alvarez/null-ls.nvim")
-
-	-- mason lsp, dap, linter and formatter manager
-	use("williamboman/mason.nvim")
-  use("WhoIsSethDaniel/mason-tool-installer.nvim")
-	use("williamboman/mason-lspconfig.nvim")
-	use("jay-babu/mason-null-ls.nvim")
-	use("neovim/nvim-lspconfig")
-
-	-- snippets and boilerplates
-	use("L3MON4D3/LuaSnip")
-	use("mattn/emmet-vim")
-
-	-- commenter
-	use("numToStr/Comment.nvim")
-
-	-- telescope
+	-- telescope (Maybe we should look for another alternative)
 	use({
 		"nvim-telescope/telescope.nvim",
 		tag = "0.1.1",
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
 
+	-- which key
+	use("folke/which-key.nvim")
+
+	-- easy-motion
+	use("easymotion/vim-easymotion")
+
+	-- snippets and boilerplates
+	use("L3MON4D3/LuaSnip")
+	use("mattn/emmet-vim")
+
+	-- autopairing plugin
+	use("windwp/nvim-autopairs")
+
 	-- git integration
 	use("lewis6991/gitsigns.nvim")
 
-	-- which key
-	use("folke/which-key.nvim")
+	-- commenter
+	use("numToStr/Comment.nvim")
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if packer_bootstrap then
 		require("packer").sync()
 	end
-
 end)
