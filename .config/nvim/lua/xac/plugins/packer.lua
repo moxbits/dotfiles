@@ -57,6 +57,9 @@ return packer.startup(function(use)
 		requires = { { "nvim-lua/plenary.nvim" } },
 	})
 
+	-- base16 themes
+	use("RRethy/nvim-base16")
+
 	-- which key
 	use("folke/which-key.nvim")
 
