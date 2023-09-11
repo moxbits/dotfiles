@@ -18,17 +18,19 @@ vim.g.maplocalleader = " "
 
 -- Normal --
 -- Explorer
-keymap("n", "<leader>e", ":Exp<CR>", opts)
+keymap("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
 
 -- Window Navigation
-keymap("n", "<C-h>", "<C-w>h", opts)
-keymap("n", "<C-j>", "<C-w>j", opts)
-keymap("n", "<C-k>", "<C-w>k", opts)
-keymap("n", "<C-l>", "<C-w>l", opts)
+keymap("n", "<leader>h", "<C-w>h", opts)
+keymap("n", "<leader>j", "<C-w>j", opts)
+keymap("n", "<leader>k", "<C-w>k", opts)
+keymap("n", "<leader>l", "<C-w>l", opts)
 
 -- Navigate buffers
-keymap("n", "<S-l>", ":bnext<CR>", opts)
-keymap("n", "<S-h>", ":bprevious<CR>", opts)
+keymap("n", "<leader>bh", ":bfirst<CR>", opts)
+keymap("n", "<leader>bk", ":bnext<CR>", opts)
+keymap("n", "<leader>bj", ":bprevious<CR>", opts)
+keymap("n", "<leader>bl", ":blast<CR>", opts)
 
 -- Delete without yanking
 keymap("n", "<leader>d", '"_d', opts)
@@ -62,7 +64,13 @@ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
 -- Custom --
 keymap("n", "<esc><esc>", "<cmd>nohlsearch<cr>", opts)
+
+-- formatting
 keymap("n", "<leader>p", "<cmd>Format<cr>", opts)
+
+-- autocompletion
+keymap("i", "<C-z>", "<C-x><C-o>", opts) -- lsp
+keymap("i", "<C-s>", "<Plug>(emmet-expand-abbr)", opts) -- lsp
 
 -- set spelling for english
 vim.bo.spelllang = "en"

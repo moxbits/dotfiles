@@ -30,6 +30,5 @@ vim.opt.relativenumber = true -- set relative numbered lines
 vim.opt.guifont = "monospace:h17" -- the font used in graphical neovim applications
 
 vim.g.netrw_browse_split = 0
-
 vim.cmd("set whichwrap+=<,>,[,],h,l")
 vim.cmd([[set iskeyword+=-]])

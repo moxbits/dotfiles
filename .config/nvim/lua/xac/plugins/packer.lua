@@ -41,8 +41,15 @@ packer.init({
 return packer.startup(function(use)
 	use("wbthomason/packer.nvim")
 
+  -- ai pair 
+  use("Exafunction/codeium.vim")
+
 	-- lsp
 	use("neovim/nvim-lspconfig")
+
+  -- tree based file explorer
+  use("nvim-tree/nvim-tree.lua")
+  use("nvim-tree/nvim-web-devicons")
 
 	-- formatting
 	use("mhartington/formatter.nvim")

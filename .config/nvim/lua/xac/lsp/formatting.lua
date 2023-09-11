@@ -37,6 +37,12 @@ formatter.setup({
 			require("formatter.filetypes.python").black,
 		},
 
+		html = {
+			require("formatter.filetypes.html").prettier,
+		},
+		css = {
+			require("formatter.filetypes.css").prettier,
+		},
 		javascript = {
 			require("formatter.filetypes.javascript").prettier,
 		},
@@ -48,6 +54,9 @@ formatter.setup({
 		},
 		typescriptreact = {
 			require("formatter.filetypes.typescriptreact").prettier,
+		},
+		json = {
+			require("formatter.filetypes.json").prettier,
 		},
 
 		php = {

@@ -19,6 +19,9 @@ vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
 
 -- init telescope
 telescope.setup({
+	defaults = {
+		file_ignore_patterns = { ".git/*" },
+	},
 	pickers = {
 		find_files = {
 			hidden = true, -- Show hidden files and folders

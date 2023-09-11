@@ -8,6 +8,7 @@ else
 end
 
 vim.cmd('hi Normal guibg=black ctermbg=black')
+vim.cmd('hi NormalNC guibg=black ctermbg=black')
 
 vim.cmd('hi LineNr guibg=black ctermbg=black')
 vim.cmd("hi CursorLine guibg=#222222")
