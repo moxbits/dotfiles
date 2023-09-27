@@ -56,6 +56,7 @@ return packer.startup(function(use)
 
 	-- treesitter highlightings
 	use("nvim-treesitter/nvim-treesitter")
+  use("HiPhish/rainbow-delimiters.nvim")
 
 	-- telescope (Maybe we should look for another alternative)
 	use({
