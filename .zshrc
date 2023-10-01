@@ -1,18 +1,11 @@
-export ZSH="$HOME/.oh-my-zsh"
-
-ZSH_THEME="multiline"
-
-plugins=(
-  git
-  python
-  zsh-syntax-highlighting
-  zsh-autosuggestions
-)
-
-source $ZSH/oh-my-zsh.sh
-
 bindkey -v
 
 source ~/.profile
+
+PROMPT='%B%F{green}λ%f%b %B%F{blue}%c%f%b '
+
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

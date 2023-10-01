@@ -8,21 +8,21 @@ window:
 font:
   # The normal (roman) font face to use.
   normal:
-    family: Hack
+    family: Hack Nerd Font
     style: Regular
 
   # The bold font face
   bold:
-    family: Hack
+    family: Hack Nerd Font
     style: Bold
 
   # The italic font face
   italic:
-    family: Hack
+    family: Hack Nerd Font
     style: Italic
 
   # Point size of the font
-  size: 22
+  size: 14
 
 colors:
   primary:

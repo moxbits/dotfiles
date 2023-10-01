@@ -1,3 +1,3 @@
-require("xac.core")
-require("xac.plugins")
-require("xac.lsp")
+require("xac.base")
+require("xac.keymaps")
+require("xac.colorscheme")
