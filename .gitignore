@@ -7,4 +7,5 @@
 .config/wslu/
 
 .local/share/nvim/
+.local/share/fonts/
 .config/lazygit/state.yml
