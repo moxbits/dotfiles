@@ -1,0 +1,435 @@
+#+TITLE: X Emacs Config Document
+#+AUTHOR: Mohammad Elahi
+
+#+DESCRIPTION: Mohammad Elahi
+#+OPTIONS: toc:2
+
+* TABLE OF CONTENTS                                                     :toc:
+- [[#required-packages][Required Packages]]
+  - [[#initializing-packages-repos][Initializing Packages Repos]]
+  - [[#list-of-used-packages][List of Used Packages]]
+  - [[#ensure-all-packages-are-installed][Ensure All Packages are Installed]]
+- [[#basic-configurations][Basic Configurations]]
+  - [[#disabling-the-useless-parts][Disabling the Useless Parts]]
+  - [[#tweaking-more][Tweaking More]]
+  - [[#theme][Theme]]
+- [[#org-mode][Org Mode]]
+  - [[#initializing-the-org][Initializing the Org]]
+  - [[#agenda-files-directory][Agenda Files Directory]]
+  - [[#table-of-content-generator][Table of Content Generator]]
+- [[#files-and-projects-navigation-and-completion-framework][Files and Projects Navigation and Completion Framework]]
+  - [[#setting-ivy-up][Setting Ivy Up]]
+  - [[#where-is-my-counsel][Where is My Counsel?]]
+  - [[#launch-the-projectile][Launch the Projectile]]
+- [[#emacs-to-powerful-ide][Emacs to Powerful IDE]]
+  - [[#extra-programming-language-modes][Extra Programming Language modes]]
+  - [[#lsp][LSP]]
+  - [[#linting][Linting]]
+  - [[#auto-completion][Auto-Completion]]
+  - [[#formatting][Formatting]]
+  - [[#snippets][Snippets]]
+  - [[#web-mode][Web Mode]]
+  - [[#emmet-support][Emmet Support]]
+  - [[#debugger-still-not-configured][Debugger (Still not configured)]]
+- [[#keybindings][Keybindings]]
+  - [[#before-binding-keys][Before binding keys]]
+  - [[#evil-mode][Evil Mode]]
+  - [[#general-custom-bindings][General Custom Bindings]]
+  - [[#the-jk-and-kj-escape][The jk and kj Escape]]
+- [[#extra-packages][Extra Packages]]
+  - [[#git-integration][Git Integration]]
+  - [[#which-key-helper][Which Key Helper]]
+  - [[#smart-parenthesis][Smart Parenthesis]]
+
+* Required Packages
+
+** Initializing Packages Repos
+#+begin_src emacs-lisp
+  (require 'package)
+
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+  (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
+  (add-to-list 'package-archives '("elpa" . "https://elpa.gnu.org/packages/") t)
+
+  (package-initialize)
+#+end_src
+
+** List of Used Packages
+#+begin_src emacs-lisp
+  (defvar my-package-list
+    '(
+      term
+      base16-theme
+      eterm-256color
+      all-the-icons
+      all-the-icons-dired
+      all-the-icons-nerd-fonts
+      rainbow-delimiters
+
+      org
+      toc-org
+
+      lsp-mode
+      lsp-ui
+      lsp-ivy
+      lsp-treemacs
+
+      flycheck
+      company
+      format-all
+      emmet-mode
+      yasnippet
+      yasnippet-snippets
+
+      ivy
+      ivy-rich
+      counsel
+      projectile
+      counsel-projectile
+
+      smartparens
+      which-key
+      magit
+
+      web-mode
+      php-mode
+      yaml-mode
+      sass-mode
+
+      evil
+      evil-collection
+      evil-leader
+      evil-commentary
+      general
+      key-chord))
+#+end_src
+
+** Ensure All Packages are Installed
+#+begin_src emacs-lisp
+  (defun my-install-packages ()
+    (interactive)
+    (dolist (package my-package-list)
+      (unless (package-installed-p package)
+	(package-install package))))
+#+end_src
+
+
+
+* Basic Configurations
+
+** Disabling the Useless Parts 
+#+begin_src emacs-lisp
+  (setq inhibit-startup-screen t)
+
+  (menu-bar-mode -1)   ; Disable the menu bar
+  (tool-bar-mode -1)   ; Disable the tool bar
+  (scroll-bar-mode -1) ; Disable the scroll bar
+  (setq ring-bell-function 'ignore)
+
+  ;; Disable the creation of backup files
+  (setq make-backup-files nil)
+#+end_src
+
+** Tweaking More
+#+begin_src emacs-lisp
+  (set-frame-parameter (selected-frame) 'alpha 0.8)
+
+  (setq display-line-numbers-type 'relative)
+
+  (global-display-line-numbers-mode)
+
+  (set-face-attribute 'default nil
+		      :family "Hack Nerd Font"
+		      :height 180)
+
+  (setq dired-listing-switches  "-agho --group-directories-first")
+
+  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+
+  (add-hook 'term-mode-hook 'eterm-256color-mode)
+
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+#+end_src
+
+** Theme
+#+begin_src emacs-lisp
+  (load-theme 'base16-default-dark t)
+
+  (custom-set-faces
+   '(default ((t (:background "black"))))
+   '(line-number ((t (:background "black"))))
+   '(line-number-current-line ((t (:background "black")))))
+#+end_src
+
+
+
+* Org Mode
+
+** Initializing the Org
+#+begin_src emacs-lisp
+  (require 'org)
+#+end_src
+
+** Agenda Files Directory
+#+begin_src emacs-lisp
+  (setq org-agenda-files '("~/org"))
+#+end_src
+
+** Table of Content Generator
+#+begin_src emacs-lisp
+  (require 'toc-org)
+  (add-hook 'org-mode-hook 'toc-org-enable)
+#+end_src
+
+
+* Files and Projects Navigation and Completion Framework
+
+** Setting Ivy Up
+#+begin_src emacs-lisp
+  (require 'ivy)
+  (global-set-key (kbd "C-s") 'swiper)
+  (define-key ivy-minibuffer-map (kbd "TAB") 'ivy-alt-done)
+  (define-key ivy-minibuffer-map (kbd "C-l") 'ivy-alt-done)
+  (define-key ivy-minibuffer-map (kbd "C-j") 'ivy-next-line)
+  (define-key ivy-minibuffer-map (kbd "C-k") 'ivy-previous-line)
+  (define-key ivy-switch-buffer-map (kbd "C-k") 'ivy-previous-line)
+  (define-key ivy-switch-buffer-map (kbd "C-l") 'ivy-done)
+  (define-key ivy-switch-buffer-map (kbd "C-d") 'ivy-switch-buffer-kill)
+  (define-key ivy-reverse-i-search-map (kbd "C-k") 'ivy-previous-line)
+  (define-key ivy-reverse-i-search-map (kbd "C-d") 'ivy-reverse-i-search-kill)
+  (ivy-mode 1)
+
+  (require 'ivy-rich)
+  (ivy-rich-mode 1)
+#+end_src
+
+** Where is My Counsel?
+#+begin_src emacs-lisp
+  (require 'counsel)
+  (global-set-key (kbd "C-M-j") 'counsel-switch-buffer)
+  (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
+  (counsel-mode 1)
+#+end_src
+
+** Launch the Projectile
+#+begin_src emacs-lisp
+  (require 'projectile)
+  (setq projectile-completion-system 'ivy)
+  (projectile-mode)
+  (when (file-directory-p "~/projects")
+    (setq projectile-project-search-path '("~/projects" "~/work")))
+  (global-set-key (kbd "C-c p") 'projectile-command-map)
+  (setq projectile-switch-project-action #'projectile-dired)
+
+  (require 'counsel-projectile)
+  (counsel-projectile-mode)
+#+end_src
+
+
+
+* Emacs to Powerful IDE
+
+** Extra Programming Language modes
+
+#+begin_src emacs-lisp
+  (require 'php-mode)
+  (add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
+
+  (require 'yaml-mode)
+  (add-to-list 'auto-mode-alist '("\\.\\(yml\\|yaml\\)\\'" . yaml-mode))
+
+  (require 'sass-mode)
+  (add-to-list 'auto-mode-alist '("\\.sass\\'" . sass-mode))
+#+end_src
+
+
+** LSP
+#+begin_src emacs-lisp
+  (add-to-list 'load-path (expand-file-name "lib/lsp-mode" user-emacs-directory))
+  (add-to-list 'load-path (expand-file-name "lib/lsp-mode/clients" user-emacs-directory))
+
+  (add-hook 'prog-mode-hook
+	    (lambda ()
+	      (unless (eq major-mode 'emacs-lisp-mode)
+		(lsp))))
+
+  (add-hook 'php-mode-hook 'lsp)
+  (add-hook 'yaml-mode-hook #'lsp)
+  (add-hook 'sass-mode-hook #'lsp)
+
+  (require 'lsp-mode)
+  (setq lsp-keymap-prefix "C-c l")
+  (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
+
+  (require 'lsp-ui)
+  (require 'lsp-ivy)
+  (require 'lsp-treemacs)
+#+end_src
+
+** Linting
+#+begin_src emacs-lisp
+  (require 'flycheck)
+  (global-flycheck-mode)
+#+end_src
+
+** Auto-Completion
+#+begin_src emacs-lisp
+  (require 'company)
+  (global-company-mode 1)
+#+end_src
+
+** Formatting
+#+begin_src emacs-lisp
+  (require 'format-all)
+  (global-set-key (kbd "M-F") #'format-all-buffer)
+  (add-hook 'prog-mode-hook #'format-all-ensure-formatter)
+#+end_src
+
+** Snippets
+#+begin_src emacs-lisp
+  (require 'yasnippet)
+  (yas-global-mode 1)
+
+  (require 'yasnippet-snippets)
+#+end_src
+
+** Web Mode
+#+begin_src emacs-lisp
+  (require 'web-mode)
+  (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+#+end_src
+
+** Emmet Support
+#+begin_src emacs-lisp
+  (require 'emmet-mode)
+  (add-hook 'sgml-mode-hook 'emmet-mode)
+  (add-hook 'css-mode-hook  'emmet-mode)
+  (add-hook 'php-mode-hook  'emmet-mode)
+  (add-to-list 'emmet-jsx-major-modes 'jsx-mode)
+  (add-to-list 'emmet-jsx-major-modes 'rjsx-mode)
+#+end_src
+
+** Debugger (Still not configured)
+
+
+
+* Keybindings
+
+** Before binding keys
+#+begin_src emacs-lisp
+  (defun open-emacs-config ()
+    "Open your Emacs configuration file."
+    (interactive)
+    (find-file (expand-file-name "~/.emacs.d/config.org")))
+
+  (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+#+end_src
+
+** Evil Mode
+#+begin_src emacs-lisp
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
+  (setq evil-want-C-u-scroll t)
+  (require 'evil)
+  (evil-mode 1)
+
+  (require 'evil-leader)
+  (global-evil-leader-mode t)
+  (evil-leader/set-leader "<SPC>")
+
+  (require 'evil-collection)
+  (evil-collection-init)
+
+  (require 'evil-commentary)
+  (evil-commentary-mode)
+#+end_src
+
+** General Custom Bindings
+#+begin_src emacs-lisp
+  (require 'general)
+  (general-create-definer leader-key-def :prefix "SPC")
+  (leader-key-def
+    :states '(normal dired-mode-map)
+    :keymaps 'override
+
+    "e c" 'open-emacs-config
+
+    "t c" 'global-company-mode
+
+    "g g" 'magit-status
+
+    "p" 'projectile-command-map
+
+    "i s" 'swiper-isearch
+    "i b" 'ivy-switch-buffer
+    "i v" 'ivy-push-view
+    "i V" 'ivy-pop-view
+    "i r" 'ivy-resume
+
+    "c a f" 'counsel-describe-function
+    "c a v" 'counsel-describe-variable
+    "c a l" 'counsel-find-library
+    "c a i" 'counsel-info-lookup-symbol
+    "c a u" 'counsel-unicode-char
+    "c a j" 'counsel-set-variable
+    "c c" 'counsel-compile
+    "c j" 'counsel-git-grep
+    "c L" 'counsel-git-log
+    "c l" 'counsel-locate
+    "c J" 'counsel-file-jump
+    "c b" 'counsel-bookmark
+    "c g" 'counsel-git
+    "c t" 'counsel-load-theme
+    "c y" 'counsel-yank-pop
+    "c f" 'counsel-fzf
+    "c r" 'counsel-rg
+
+    ;; orgmode keybindings
+    "o l" 'org-store-link
+    "o a" 'org-agenda
+    "o c" 'org-capture
+
+    "b f" 'format-all-buffer
+
+    "f d" 'dired
+    "f f" 'counsel-find-file
+    "f F" 'counsel-org-file
+    "f m" 'counsel-find-file-run-immediate)
+#+end_src
+
+** The jk and kj Escape
+#+begin_src emacs-lisp
+  (require 'key-chord)
+  (setq key-chord-two-keys-delay 0.1)
+  (key-chord-define-global "jk" 'evil-normal-state)
+  (key-chord-define-global "kj" 'evil-normal-state)
+  (key-chord-mode 1)
+#+end_src
+
+
+* Extra Packages
+
+** Git Integration
+#+begin_src emacs-lisp
+  (require 'magit)
+#+end_src
+
+** Which Key Helper
+#+begin_src emacs-lisp
+  (require 'which-key)
+  (which-key-setup-side-window-bottom)
+  (which-key-mode)
+#+end_src
+
+** Smart Parenthesis
+#+begin_src emacs-lisp
+  (require 'smartparens)
+  (smartparens-global-mode 1)
+#+end_src

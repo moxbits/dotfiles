@@ -1,6 +1,6 @@
 export EDITOR='nvim'
 
-alias vi=nvim
+alias vi=vim
 alias nv=nvim
 alias lg=lazygit
 
