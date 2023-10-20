@@ -15,7 +15,7 @@
   - [[#theme][Theme]]
 - [[#org-mode][Org Mode]]
   - [[#initializing-the-org][Initializing the Org]]
-  - [[#agenda-files-directory][Agenda Files Directory]]
+  - [[#org-agenda-config][Org Agenda Config]]
   - [[#table-of-content-generator][Table of Content Generator]]
 - [[#files-and-projects-navigation-and-completion-framework][Files and Projects Navigation and Completion Framework]]
   - [[#setting-ivy-up][Setting Ivy Up]]
@@ -170,9 +170,12 @@
   (require 'org)
 #+end_src
 
-** Agenda Files Directory
+** Org Agenda Config
 #+begin_src emacs-lisp
   (setq org-agenda-files '("~/org"))
+
+  (setq org-todo-keywords
+     '((sequence "TODO(t)" "DOING(n)" "|" "DONE(d!)" "CANCL(k!)")))
 #+end_src
 
 ** Table of Content Generator
