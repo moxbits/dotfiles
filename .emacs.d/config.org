@@ -10,8 +10,9 @@
   - [[#list-of-used-packages][List of Used Packages]]
   - [[#ensure-all-packages-are-installed][Ensure All Packages are Installed]]
 - [[#basic-configurations][Basic Configurations]]
-  - [[#disabling-the-useless-parts][Disabling the Useless Parts]]
+  - [[#basic-configs][Basic Configs]]
   - [[#tweaking-more][Tweaking More]]
+  - [[#indentations][Indentations]]
   - [[#theme][Theme]]
 - [[#org-mode][Org Mode]]
   - [[#initializing-the-org][Initializing the Org]]
@@ -65,6 +66,7 @@
       all-the-icons-dired
       all-the-icons-nerd-fonts
       rainbow-delimiters
+      doom-modeline
 
       org
       toc-org
@@ -117,8 +119,10 @@
 
 * Basic Configurations
 
-** Disabling the Useless Parts 
+** Basic Configs
 #+begin_src emacs-lisp
+  (defalias 'yes-or-no-p 'y-or-n-p)
+
   (setq inhibit-startup-screen t)
 
   (menu-bar-mode -1)   ; Disable the menu bar
@@ -127,20 +131,24 @@
   (setq ring-bell-function 'ignore)
 
   ;; Disable the creation of backup files
-  (setq make-backup-files nil)
+  (setq make-backup-files nil)    ;; stop creating backup~ files
+  (setq auto-save-default nil)    ;; stop creating #autosave# files
+  (setq create-lockfiles nil)
 #+end_src
 
 ** Tweaking More
 #+begin_src emacs-lisp
-  (set-frame-parameter (selected-frame) 'alpha 0.8)
+  (set-frame-parameter (selected-frame) 'alpha 0.85)
 
   (setq display-line-numbers-type 'relative)
 
   (global-display-line-numbers-mode)
 
+  (doom-modeline-mode 1)
+
   (set-face-attribute 'default nil
-		      :family "Hack Nerd Font"
-		      :height 180)
+	:family "Hack Nerd Font"
+	:height 180)
 
   (setq dired-listing-switches  "-agho --group-directories-first")
 
@@ -150,6 +158,20 @@
 
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 #+end_src
+
+** Indentations
+#+begin_src emacs-lisp
+  (electric-indent-mode +1)
+  (setq web-indent-level 2)
+  (setq html-indent-level 2)
+  (setq sgml-indent-level 2)
+  (setq css-indent-level 2)
+  (setq typescript-indent-level 2)
+  (setq javascript-indent-level 2)
+  (setq js-indent-level 2)
+  (setq python-indent-level 4)
+#+end_src
+
 
 ** Theme
 #+begin_src emacs-lisp
@@ -172,10 +194,10 @@
 
 ** Org Agenda Config
 #+begin_src emacs-lisp
-  (setq org-agenda-files '("~/org"))
+  (setq org-agenda-files '("~/org" "~/Dropbox/org"))
 
   (setq org-todo-keywords
-     '((sequence "TODO(t)" "DOING(n)" "|" "DONE(d!)" "CANCL(k!)")))
+     '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!)" "CANCL(k!)")))
 #+end_src
 
 ** Table of Content Generator
@@ -279,13 +301,15 @@
 #+begin_src emacs-lisp
   (require 'company)
   (global-company-mode 1)
+  (define-key company-active-map (kbd "<tab>") 'company-complete-selection)
+  (define-key lsp-mode-map (kbd "<tab>") 'company-indent-or-complete-common)
 #+end_src
 
 ** Formatting
 #+begin_src emacs-lisp
   (require 'format-all)
+  (add-to-list 'format-all-formatters '("HTML" prettier))
   (global-set-key (kbd "M-F") #'format-all-buffer)
-  (add-hook 'prog-mode-hook #'format-all-ensure-formatter)
 #+end_src
 
 ** Snippets
@@ -362,7 +386,13 @@
     :states '(normal dired-mode-map)
     :keymaps 'override
 
+    "d" 'dired
+    "f" 'find-file
+
     "e c" 'open-emacs-config
+    "e t" '(lambda ()
+	     (interactive)
+	     (find-file "~/Dropbox/org/todo.org"))
 
     "t c" 'global-company-mode
 
@@ -371,10 +401,17 @@
     "p" 'projectile-command-map
 
     "i s" 'swiper-isearch
-    "i b" 'ivy-switch-buffer
     "i v" 'ivy-push-view
     "i V" 'ivy-pop-view
     "i r" 'ivy-resume
+
+    ;; orgmode keybindings
+    "o l" 'org-store-link
+    "o a" 'org-agenda
+    "o c" 'org-capture
+
+    "b f" 'format-all-buffer
+    "b s" 'ivy-switch-buffer
 
     "c a f" 'counsel-describe-function
     "c a v" 'counsel-describe-variable
@@ -386,25 +423,16 @@
     "c j" 'counsel-git-grep
     "c L" 'counsel-git-log
     "c l" 'counsel-locate
-    "c J" 'counsel-file-jump
     "c b" 'counsel-bookmark
     "c g" 'counsel-git
     "c t" 'counsel-load-theme
     "c y" 'counsel-yank-pop
-    "c f" 'counsel-fzf
+    "c f" 'counsel-find-file
+    "c z" 'counsel-fzf
     "c r" 'counsel-rg
-
-    ;; orgmode keybindings
-    "o l" 'org-store-link
-    "o a" 'org-agenda
-    "o c" 'org-capture
-
-    "b f" 'format-all-buffer
-
-    "f d" 'dired
-    "f f" 'counsel-find-file
-    "f F" 'counsel-org-file
-    "f m" 'counsel-find-file-run-immediate)
+    "c j" 'counsel-file-jump
+    "c F" 'counsel-org-file
+    "c m" 'counsel-find-file-run-immediate)
 #+end_src
 
 ** The jk and kj Escape

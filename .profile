@@ -72,4 +72,6 @@ fi
 # adding composer binaries to the path
 export PATH="$PATH:$HOME/.composer/vendor/bin"
 
+# spotify client enhancer
+export PATH=$PATH:/home/M/.spicetify
 # ------- end -------
