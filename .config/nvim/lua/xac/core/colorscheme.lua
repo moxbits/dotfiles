@@ -2,7 +2,7 @@ local ok_base16, _ = pcall(require, "base16-colorscheme")
 
 -- colorscheme
 if ok_base16 then
-	vim.cmd("colorscheme base16-ayu-dark")
+	vim.cmd("colorscheme base16-solarized-dark")
 else
 	vim.cmd("colorscheme torte")
 end

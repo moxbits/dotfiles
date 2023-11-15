@@ -30,7 +30,9 @@
   - [[#formatting][Formatting]]
   - [[#snippets][Snippets]]
   - [[#web-mode][Web Mode]]
+  - [[#python-extra-configs][Python Extra Configs]]
   - [[#emmet-support][Emmet Support]]
+  - [[#ein][EIN]]
   - [[#debugger-still-not-configured][Debugger (Still not configured)]]
 - [[#keybindings][Keybindings]]
   - [[#before-binding-keys][Before binding keys]]
@@ -41,6 +43,7 @@
   - [[#git-integration][Git Integration]]
   - [[#which-key-helper][Which Key Helper]]
   - [[#smart-parenthesis][Smart Parenthesis]]
+  - [[#codeium-ai-copilot-setup][Codeium AI Copilot Setup]]
 
 * Required Packages
 
@@ -71,6 +74,8 @@
       org
       toc-org
 
+      ein
+
       lsp-mode
       lsp-ui
       lsp-ivy
@@ -97,6 +102,8 @@
       php-mode
       yaml-mode
       sass-mode
+
+      pyvenv-auto
 
       evil
       evil-collection
@@ -148,7 +155,7 @@
 
   (set-face-attribute 'default nil
 	:family "Hack Nerd Font"
-	:height 180)
+	:height 200)
 
   (setq dired-listing-switches  "-agho --group-directories-first")
 
@@ -274,11 +281,14 @@
   (add-to-list 'load-path (expand-file-name "lib/lsp-mode/clients" user-emacs-directory))
 
   (add-hook 'prog-mode-hook
-	    (lambda ()
-	      (unless (eq major-mode 'emacs-lisp-mode)
-		(lsp))))
+      (lambda ()
+      (unless (or (eq major-mode 'emacs-lisp-mode) 
+		  (eq major-mode 'python-mode))
+		      (lsp))))
 
   (add-hook 'php-mode-hook 'lsp)
+  (add-hook 'kotlin-mode-hook 'lsp)
+
   (add-hook 'yaml-mode-hook #'lsp)
   (add-hook 'sass-mode-hook #'lsp)
 
@@ -301,6 +311,21 @@
 #+begin_src emacs-lisp
   (require 'company)
   (global-company-mode 1)
+
+  (setq-default
+    company-idle-delay 0.05
+    company-require-match nil
+    company-minimum-prefix-length 0
+    company-frontends '(company-preview-frontend))
+
+  (defun activate-company-popup ()
+    (interactive)
+    (setq company-frontends '(company-pseudo-tooltip-frontend company-preview-frontend)))
+
+  (defun deactivate-company-popup ()
+    (interactive)
+    (setq company-frontends '(company-preview-frontend)))
+
   (define-key company-active-map (kbd "<tab>") 'company-complete-selection)
   (define-key lsp-mode-map (kbd "<tab>") 'company-indent-or-complete-common)
 #+end_src
@@ -333,6 +358,13 @@
   (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 #+end_src
 
+** Python Extra Configs
+#+begin_src emacs-lisp
+  (require 'pyvenv)
+  (add-hook 'python-mode-hook 'pyvenv-mode)
+  (add-hook 'pyvenv-post-activate-hooks 'lsp)
+#+end_src
+
 ** Emmet Support
 #+begin_src emacs-lisp
   (require 'emmet-mode)
@@ -341,6 +373,11 @@
   (add-hook 'php-mode-hook  'emmet-mode)
   (add-to-list 'emmet-jsx-major-modes 'jsx-mode)
   (add-to-list 'emmet-jsx-major-modes 'rjsx-mode)
+#+end_src
+
+** EIN
+#+begin_src emacs-lisp
+(require 'ein)
 #+end_src
 
 ** Debugger (Still not configured)
@@ -390,11 +427,19 @@
     "f" 'find-file
 
     "e c" 'open-emacs-config
-    "e t" '(lambda ()
-	     (interactive)
-	     (find-file "~/Dropbox/org/todo.org"))
+
+    "e t l" '(lambda ()
+	       (interactive)
+	       (find-file "~/org/todo.org"))
+
+    "e t d" '(lambda ()
+	       (interactive)
+	       (find-file "~/Dropbox/org/todo.org"))
 
     "t c" 'global-company-mode
+    "t p a" 'activate-company-popup
+    "t p d" 'deactivate-company-popup
+    "t v a" 'pyvenv-activate
 
     "g g" 'magit-status
 
@@ -409,6 +454,14 @@
     "o l" 'org-store-link
     "o a" 'org-agenda
     "o c" 'org-capture
+
+    ;; avy keybindings
+    "SPC f" 'avy-goto-char
+    "SPC F" 'avy-goto-char-2
+    "SPC w" 'avy-goto-word-0
+    "SPC W" 'avy-goto-word-1
+    "SPC j" 'avy-goto-line
+    "SPC k" 'avy-goto-line
 
     "b f" 'format-all-buffer
     "b s" 'ivy-switch-buffer
@@ -463,4 +516,34 @@
 #+begin_src emacs-lisp
   (require 'smartparens)
   (smartparens-global-mode 1)
+#+end_src
+
+** Codeium AI Copilot Setup
+#+begin_src emacs-lisp
+  (add-to-list 'load-path "~/.emacs.d/codeium.el")
+
+  ;; we recommend using use-package to organize your init.el
+  (use-package codeium
+      :init
+      (add-to-list 'completion-at-point-functions #'codeium-completion-at-point)
+
+      :config
+      (setq use-dialog-box nil) ;; do not use popup boxes
+
+      (setq codeium-mode-line-enable
+	  (lambda (api) (not (memq api '(CancelRequest Heartbeat AcceptCompletion)))))
+      (add-to-list 'mode-line-format '(:eval (car-safe codeium-mode-line)) t)
+
+      (setq codeium-api-enabled
+	  (lambda (api)
+	      (memq api '(GetCompletions Heartbeat CancelRequest GetAuthToken RegisterUser auth-redirect AcceptCompletion))))
+
+      (defun my-codeium/document/text ()
+	  (buffer-substring-no-properties (max (- (point) 3000) (point-min)) (min (+ (point) 1000) (point-max))))
+
+      (defun my-codeium/document/cursor_offset ()
+	  (codeium-utf8-byte-length
+	      (buffer-substring-no-properties (max (- (point) 3000) (point-min)) (point))))
+      (setq codeium/document/text 'my-codeium/document/text)
+      (setq codeium/document/cursor_offset 'my-codeium/document/cursor_offset))
 #+end_src

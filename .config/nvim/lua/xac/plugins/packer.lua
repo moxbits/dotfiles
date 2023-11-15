@@ -44,7 +44,10 @@ return packer.startup(function(use)
   -- ai pair 
   use("Exafunction/codeium.vim")
 
-	-- lsp
+  -- ide features
+  use("williamboman/mason.nvim")
+  use("WhoIsSethDaniel/mason-tool-installer.nvim")
+  use("williamboman/mason-lspconfig.nvim")
 	use("neovim/nvim-lspconfig")
 
   -- tree based file explorer
@@ -53,6 +56,9 @@ return packer.startup(function(use)
 
 	-- formatting
 	use("mhartington/formatter.nvim")
+
+  -- linter
+  use("mfussenegger/nvim-lint")
 
 	-- treesitter highlightings
 	use("nvim-treesitter/nvim-treesitter")

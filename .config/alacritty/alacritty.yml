@@ -22,7 +22,7 @@ font:
     style: Italic
 
   # Point size of the font
-  size: 15
+  size: 17
 
 colors:
   primary:

@@ -5,20 +5,10 @@ if not is_lsp_ok then
 	return
 end
 
-local handlers = require("xac.lsp.handlers")
+local handlers = require("xac.ide.handlers")
 handlers.setup()
 
--- default
-local servers = {
-	"lua_ls",
-	"pyright",
-	"tsserver",
-	"bashls",
-	"html",
-	"cssls",
-	"jsonls",
-	"yamlls",
-}
+local servers = require("xac.ide.lsp_servers").lsp_servers
 
 local opts = {
 	on_attach = handlers.on_attach,
@@ -36,6 +26,6 @@ local customized_servers = {
 }
 
 for _, server in ipairs(customized_servers) do
-	local custom_opts = require("xac.lsp.settings." .. server).setup(opts)
+	local custom_opts = require("xac.ide.settings." .. server).setup(opts)
 	lspconfig[server].setup(custom_opts)
 end
