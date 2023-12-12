@@ -4,7 +4,6 @@
 
 (setq vc-follow-symlinks t)
 
-(load "~/.emacs.d/secrets.el")
 (org-babel-load-file (expand-file-name "config.org" user-emacs-directory))
 
 (custom-set-variables
@@ -13,7 +12,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("f700bc979515153bef7a52ca46a62c0aa519950cc06d539df4f3d38828944a2c" "f7fe70ecf059f036813b327285e615438802980b8a477a3bbe4733aa0176c4fd" default))
+   '("dea106ab256a8017a325f51f01b1131915989fa25db48eb831ffb18dac8ecd39" "f700bc979515153bef7a52ca46a62c0aa519950cc06d539df4f3d38828944a2c" "f7fe70ecf059f036813b327285e615438802980b8a477a3bbe4733aa0176c4fd" default))
  '(format-all-default-formatters
    '(("Assembly" asmfmt)
      ("ATS" atsfmt)

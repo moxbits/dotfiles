@@ -1,0 +1,3 @@
+slstatus &
+#picom &
+feh --randomize --bg-fill ~/.local/wallpapers/anime-girls &

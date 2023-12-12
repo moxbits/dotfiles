@@ -41,9 +41,6 @@ packer.init({
 return packer.startup(function(use)
 	use("wbthomason/packer.nvim")
 
-  -- ai pair 
-  use("Exafunction/codeium.vim")
-
   -- ide features
   use("williamboman/mason.nvim")
   use("WhoIsSethDaniel/mason-tool-installer.nvim")

@@ -1,5 +1,10 @@
 \.git
+\.gitignore
 
-LICENCE
-README.md
+dwm
+st
+slstatus
+nixos
 
+^/README.*
+^/LICENSE.*

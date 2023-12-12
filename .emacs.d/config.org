@@ -43,7 +43,6 @@
   - [[#git-integration][Git Integration]]
   - [[#which-key-helper][Which Key Helper]]
   - [[#smart-parenthesis][Smart Parenthesis]]
-  - [[#codeium-ai-copilot-setup][Codeium AI Copilot Setup]]
 
 * Required Packages
 
@@ -182,7 +181,7 @@
 
 ** Theme
 #+begin_src emacs-lisp
-  (load-theme 'base16-default-dark t)
+  (load-theme 'base16-gruvbox-dark-hard t)
 
   (custom-set-faces
    '(default ((t (:background "black"))))
@@ -316,16 +315,20 @@
     company-idle-delay 0.05
     company-require-match nil
     company-minimum-prefix-length 0
-    company-frontends '(company-preview-frontend))
+    company-frontends nil)
 
-  (defun activate-company-popup ()
+  (defun set-company-full-frontend ()
     (interactive)
     (setq company-frontends '(company-pseudo-tooltip-frontend company-preview-frontend)))
 
-  (defun deactivate-company-popup ()
+  (defun set-company-preview-frontend ()
     (interactive)
     (setq company-frontends '(company-preview-frontend)))
 
+  (defun unset-company-frontends ()
+    (interactive)
+    (setq company-frontends nil)
+  )
   (define-key company-active-map (kbd "<tab>") 'company-complete-selection)
   (define-key lsp-mode-map (kbd "<tab>") 'company-indent-or-complete-common)
 #+end_src
@@ -368,6 +371,7 @@
 ** Emmet Support
 #+begin_src emacs-lisp
   (require 'emmet-mode)
+  (add-hook 'web-mode-hook 'emmet-mode)
   (add-hook 'sgml-mode-hook 'emmet-mode)
   (add-hook 'css-mode-hook  'emmet-mode)
   (add-hook 'php-mode-hook  'emmet-mode)
@@ -430,15 +434,16 @@
 
     "e t l" '(lambda ()
 	       (interactive)
-	       (find-file "~/org/todo.org"))
+	       (find-file "~/.local/org/todo.org"))
 
     "e t d" '(lambda ()
 	       (interactive)
 	       (find-file "~/Dropbox/org/todo.org"))
 
-    "t c" 'global-company-mode
-    "t p a" 'activate-company-popup
-    "t p d" 'deactivate-company-popup
+    "t c c" 'global-company-mode
+    "t c f" 'set-company-full-frontend
+    "t c p" 'set-company-preview-frontend
+    "t c d" 'unset-company-frontends
     "t v a" 'pyvenv-activate
 
     "g g" 'magit-status
@@ -518,32 +523,3 @@
   (smartparens-global-mode 1)
 #+end_src
 
-** Codeium AI Copilot Setup
-#+begin_src emacs-lisp
-  (add-to-list 'load-path "~/.emacs.d/codeium.el")
-
-  ;; we recommend using use-package to organize your init.el
-  (use-package codeium
-      :init
-      (add-to-list 'completion-at-point-functions #'codeium-completion-at-point)
-
-      :config
-      (setq use-dialog-box nil) ;; do not use popup boxes
-
-      (setq codeium-mode-line-enable
-	  (lambda (api) (not (memq api '(CancelRequest Heartbeat AcceptCompletion)))))
-      (add-to-list 'mode-line-format '(:eval (car-safe codeium-mode-line)) t)
-
-      (setq codeium-api-enabled
-	  (lambda (api)
-	      (memq api '(GetCompletions Heartbeat CancelRequest GetAuthToken RegisterUser auth-redirect AcceptCompletion))))
-
-      (defun my-codeium/document/text ()
-	  (buffer-substring-no-properties (max (- (point) 3000) (point-min)) (min (+ (point) 1000) (point-max))))
-
-      (defun my-codeium/document/cursor_offset ()
-	  (codeium-utf8-byte-length
-	      (buffer-substring-no-properties (max (- (point) 3000) (point-min)) (point))))
-      (setq codeium/document/text 'my-codeium/document/text)
-      (setq codeium/document/cursor_offset 'my-codeium/document/cursor_offset))
-#+end_src
