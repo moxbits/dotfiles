@@ -1,0 +1,27 @@
+# update system
+sudo pacman -Syu
+
+# install required packages
+sudo pacman -S neofetch git stow bspwm sxhkd polybar dmenu arandr rofi feh picom zsh zsh-completions tlp light kde-cli-tools network-manager-applet pavucontrol gnome-tweaks lxappearance keepassxc firefox chromium vlc shutter telegram-desktop uget emacs neovim curl wget make cmake gcc base-devel nodejs lua luajit luarocks npm alacritty tmux github-cli lazygit tig htop lsd fzf ripgrep 
+
+# extra config for several packages
+sudo chmod +s /usr/bin/light # fix no brightness change issue
+sudo systemctl enable tlp.service # add tlp to services
+
+# clone dotfiles
+git clone https://github.com/xacovaci/xfiles.git
+cd xfiles
+stow .
+cd ~
+
+# installing fonts
+mkdir ~/.local/share/fonts
+cd ~/.local/share/fonts
+
+curl -OL https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.tar.xz
+curl -OL https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.tar.xz
+
+tar -xf *.tar.xz
+rm *.tar.xz
+fc-cache -v -f
+cd ~

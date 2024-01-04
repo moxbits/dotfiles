@@ -17,10 +17,6 @@ exec --no-startup-id dex --autostart --environment i3
 # screen before suspend. Use loginctl lock-session to lock your screen.
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
-# NetworkManager is the most popular way to manage wireless networks on Linux,
-# and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
-
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
@@ -39,10 +35,10 @@ bindsym XF86MonBrightnessDown exec light -U 10
 bindsym XF86MonBrightnessUp exec light -A 10
 
 # control monitors display style
-bindsym $mod+Ctrl+1 exec ".screenlayout/laptop-monitor-only.sh"
-bindsym $mod+Ctrl+2 exec ".screenlayout/external-monitor-only.sh"
-bindsym $mod+Ctrl+3 exec ".screenlayout/external-monitor-left.sh"
-bindsym $mod+Ctrl+4 exec ".screenlayout/external-monitor-right.sh"
+bindsym $mod+Ctrl+1 exec "/home/x/scripts/screen/manjaro/laptop-monitor-only.sh"
+bindsym $mod+Ctrl+2 exec "/home/x/scripts/screen/manjaro/external-monitor-only.sh"
+bindsym $mod+Ctrl+3 exec "/home/x/scripts/screen/external-monitor-left.sh"
+bindsym $mod+Ctrl+4 exec "/home/x/scripts/screen/external-monitor-right.sh"
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -51,21 +47,21 @@ floating_modifier $mod
 bindsym $mod+t exec "alacritty"
 
 # some apps to run keymaps
-bindsym $mod+b exec "brave"
-bindsym $mod+o exec "pcmanfm"
+bindsym $mod+b exec "firefox"
+bindsym $mod+o exec "nautilus"
 bindsym $mod+i exec "emacs"
 bindsym $mod+c exec "telegram-desktop"
 bindsym $mod+m exec "spotify-launcher"
 
 bindsym $mod+Ctrl+Return exec "~/scripts/captain-loader.sh"
 bindsym $mod+Ctrl+s exec "~/scripts/ssh-bridge.sh"
-bindsym $mod+n exec "kdesu ~/Apps/nekoray/nekoray"
+bindsym $mod+n exec "kdesu ~/.local/bin/nekoray/nekoray"
 
 # kill focused window
 bindsym $mod+q kill
 
 # start dmenu (a program launcher)
-# bindsym $mod+d exec --no-startup-id dmenu_run
+bindsym $mod+d exec --no-startup-id dmenu_run
 # A more modern dmenu replacement is rofi:
 bindsym $mod+Return exec --no-startup-id "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -124,8 +120,8 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "WEB"
-set $ws2 "TERM"
+set $ws1 "TERM"
+set $ws2 "WEB"
 set $ws3 "CHAT"
 set $ws4 "FILE"
 set $ws5 "TOOL"
@@ -166,8 +162,7 @@ bindsym $mod+Shift+Tab workspace prev
 bindsym $alt+Shift+Tab workspace prev
 
 # binding applications to workspaces
-for_window [class="Brave"] move container to workspace $ws1
-for_window [class="Alacritty"] move container to workspace $ws2
+for_window [class="firefox"] move container to workspace $ws2
 for_window [class="Telegram"] move container to workspace $ws3
 for_window [class="Pcmanfm"] move container to workspace $ws4
 for_window [class="Spotify"] move container to workspace $ws7
@@ -213,33 +208,33 @@ bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
-  	position top
-    font pango:Hack Nerd Font 12
-  	status_command i3status
-    tray_padding 1
-    strip_workspace_numbers yes
-
-    colors {
-            separator  #1f222d
-            background #1f222d
-            statusline #81a1c1
-
-            #                   border  background text
-            focused_workspace  #1f222d #1f222d    #81a1c1
-            active_workspace   #1f222d #252936    #5e81ac
-            inactive_workspace #1f222d #1f222d    #4c566a
-            urgent_workspace   #1f222d #1f222d    #ee829f
-            binding_mode       #1f222d #81a1c1    #2e3440
-    }
-}
+# bar {
+#   	position top
+#     font pango:Hack Nerd Font 14
+#   	status_command i3status
+#     tray_padding 1
+#     strip_workspace_numbers yes
+#
+#     colors {
+#             separator  #181818
+#             background #181818
+#             statusline #b8becc
+#
+#             #                  border  backgr. text
+#             focused_workspace  #b8becc #b8becc #000000
+#             active_workspace   #181818 #252936 #5e81ac
+#             inactive_workspace #181818 #181818 #6d788f
+#             urgent_workspace   #181818 #181818 #ee829f
+#             binding_mode       #181818 #b8becc #2e3440
+#     }
+# }
 
 # Window color settings
 # class                 border  backgr. text    indicator
-client.focused          #81a1c1 #81a1c1 #ffffff #81a1c1
-client.unfocused        #2e3440 #1f222d #888888 #1f222d
-client.focused_inactive #2e3440 #1f222d #888888 #1f222d
-client.placeholder      #2e3440 #1f222d #888888 #1f222d
+client.focused          #b8becc #b8becc #ffffff #b8becc
+client.unfocused        #2e3440 #000000 #888888 #000000
+client.focused_inactive #2e3440 #000000 #888888 #000000
+client.placeholder      #2e3440 #000000 #888888 #000000
 client.urgent           #900000 #900000 #ffffff #900000
 client.background       #242424
 
@@ -252,4 +247,7 @@ gaps outer 5
 exec --no-startup-id picom
 
 # Wallpaper loading
-exec --no-startup-id feh --randomize --bg-fill ~/Wallpapers
+exec --no-startup-id feh --randomize --bg-fill ~/.local/wallpapers/classic/
+
+# polybar
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh

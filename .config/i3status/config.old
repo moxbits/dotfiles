@@ -9,60 +9,53 @@
 general {
         colors = true
         interval = 5
-        color_good = "#069e00" # Light green
-        color_degraded = "#c2bb02" # Light yellow
+        color_good = "#81a1c1" # Light green
+        color_degraded = "#fafe7c" # Light yellow
         color_bad = "#ff7770" # Light red
 }
 
-order += "ethernet _first_"
-order += "wireless _first_"
-order += "load"
-order += "cpu_usage"
+order += "battery all"
 order += "disk /"
+order += "load"
 order += "memory"
 order += "volume master"
-order += "battery all"
 order += "tztime local"
 
 wireless _first_ {
-        format_up = "[W%quality %essid]"
-        format_down = ""
+        format_up = "W: (%quality at %essid) %ip"
+        format_down = "W: down"
 }
 
 ethernet _first_ {
-        format_up = "[E %ip]"
-        format_down = ""
+        format_up = "E: %ip (%speed)"
+        format_down = "E: down"
 }
 
 battery all {
-        format = "[B %percentage %remaining]"
+        format = " 󰂄 %percentage %remaining "
 }
 
 disk "/" {
-        format = "[+%avail]"
-}
-
-cpu_usage {
-        format = "[CPU %usage]"
+        format = "  %avail "
 }
 
 load {
-        format = "[%1min]"
+        format = " %1min "
 }
 
 memory {
-        format = "[R %used/%available]"
+        format = "󱊞 %used/%available "
         threshold_degraded = "1G"
         format_degraded = "MEMORY < %available"
 }
 
 tztime local {
-        format = "[%Y-%m-%d %H:%M]"
+        format = "󰸗 %Y-%m-%d  󱑂 %H:%M "
 }
 
 volume master {
-    format = "[VOL %volume]"
-    format_muted = "[MUTE]"
+    format = " %volume "
+    format_muted = "󰝟 "
     device = "default"
     mixer = "Master"
     mixer_idx = 0
