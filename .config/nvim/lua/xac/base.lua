@@ -27,8 +27,13 @@ vim.opt.tabstop = 2 -- insert 2 spaces for a tab
 vim.opt.cursorline = true -- highlight the current line
 vim.opt.number = true -- set numbered lines
 vim.opt.relativenumber = true -- set relative numbered lines
-vim.opt.guifont = "monospace:h17" -- the font used in graphical neovim applications
+vim.opt.guifont = "Hack Nerd Font Mono:h15" -- the font used in graphical neovim applications
 
 vim.g.netrw_browse_split = 0
 vim.cmd("set whichwrap+=<,>,[,],h,l")
 vim.cmd([[set iskeyword+=-]])
+
+vim.cmd("colorscheme torte") -- a fallback colorscheme
+
+require("xac.utils.colorscheme").darkifyColorscheme()
+
