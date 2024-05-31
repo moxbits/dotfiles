@@ -1,11 +1,10 @@
 .config/lazygit/state.yml
 
-.config/nvim/plugins/
-.config/nvim/plugin/
-
 .config/gh/
 .config/wslu/
 
 .local/share/nvim/
 .local/share/fonts/
 .config/lazygit/state.yml
+.config/nvim/lazy-lock.json
+.config/nvim/lazy-lock.json

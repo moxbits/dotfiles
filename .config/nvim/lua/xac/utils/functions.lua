@@ -1,5 +1,9 @@
 local M = {}
 
+function M.merge(first_tbl, second_tbl)
+	return vim.tbl_extend("force", first_tbl, second_tbl)
+end
+
 function M.create_new_file()
 	-- Set the default file path
 	local pwd = vim.fn.getcwd()

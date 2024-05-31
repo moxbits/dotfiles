@@ -12,6 +12,7 @@ return {
 			"jsonls",
 			"yamlls",
 			"emmet_ls",
+			"intelephense",
 		}
 
 		require("mason-lspconfig").setup({
@@ -19,6 +20,7 @@ return {
 		})
 
 		local lspconfig = require("lspconfig")
+		local merge = require("xac.utils.functions").merge
 
 		local function lsp_keymaps(bufnr)
 			local opts = { noremap = true, silent = true }
@@ -61,6 +63,13 @@ return {
 		}
 
 		for _, server in ipairs(lsp_servers) do
+			if server == "emmet_ls" then
+				local default_filetypes = lspconfig.emmet_ls.document_config.default_config.filetypes
+				opts = merge(opts, { filetypes = merge(default_filetypes, { "php" }) })
+			elseif server == "intelephense" then
+				opts = merge(opts, { single_file_support = true })
+			end
+
 			lspconfig[server].setup(opts)
 		end
 	end,

@@ -3,9 +3,7 @@ local opts = { noremap = true, silent = true }
 -- Shorten function name
 local keymap = vim.api.nvim_set_keymap
 
-local function merge(first_tbl, second_tbl)
-	return vim.tbl_extend("force", first_tbl, second_tbl)
-end
+local merge = require("xac.utils.functions").merge
 
 --Remap space as leader key
 keymap("", "<Space>", "<Nop>", opts)
@@ -34,11 +32,21 @@ keymap("n", "<leader>j", "<C-w>j", merge(opts, { desc = "select down window" }))
 keymap("n", "<leader>k", "<C-w>k", merge(opts, { desc = "select up window" }))
 keymap("n", "<leader>l", "<C-w>l", merge(opts, { desc = "select right window" }))
 
+-- Working with Tabs
+keymap("n", "<leader>tn", ":tabnew<CR>", merge(opts, { desc = "create new tab" }))
+keymap("n", "<leader>tj", ":tabnext<CR>", merge(opts, { desc = "open next tab" }))
+keymap("n", "<leader>tk", ":tabprevious<CR>", merge(opts, { desc = "open previous tab" }))
+keymap("n", "<leader>th", ":tabfirst<CR>", merge(opts, { desc = "open first tab" }))
+keymap("n", "<leader>tl", ":tablast<CR>", merge(opts, { desc = "open last tab" }))
+keymap("n", "<leader>tc", ":tabclose<CR>", merge(opts, { desc = "close current tab" }))
+
 -- Navigate buffers
 keymap("n", "<leader>bh", ":bfirst<CR>", merge(opts, { desc = "go to first buffer" }))
 keymap("n", "<leader>bk", ":bnext<CR>", merge(opts, { desc = "go to next buffer" }))
 keymap("n", "<leader>bj", ":bprevious<CR>", merge(opts, { desc = "go to previous buffer" }))
 keymap("n", "<leader>bl", ":blast<CR>", merge(opts, { desc = "go to last buffer" }))
+keymap("n", "<leader>bt", ":term<CR>", merge(opts, { desc = "open a terminal mode" }))
+keymap("n", "<leader>bg", ":Neogit<CR>", merge(opts, { desc = "open neogit buffer" }))
 
 -- Delete without yanking
 keymap("n", "<leader>d", '"_d', merge(opts, { desc = "delete without yank" }))
@@ -49,7 +57,12 @@ keymap("n", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
 
 -- Create new file
 keymap("n", "<leader>bn", "<cmd>enew<cr>", merge(opts, { desc = "new empty buffer" }))
-keymap("n", "<leader>fN", ":lua require('xac.utils.functions').create_new_file()<cr>", merge(opts, { desc = "new empty file" }))
+keymap(
+	"n",
+	"<leader>fN",
+	":lua require('xac.utils.functions').create_new_file()<cr>",
+	merge(opts, { desc = "new empty file" })
+)
 
 -- Telescope
 keymap("n", "<leader>ff", "<cmd>Telescope find_files<cr>", merge(opts, { desc = "find file" }))

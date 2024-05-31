@@ -1,10 +1,11 @@
 vim.opt.laststatus = 3 -- one global status line
+vim.opt.showtabline = 0 -- disable tab line
 vim.opt.backup = false -- creates a backup file
 vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
 vim.opt.completeopt = { "menuone", "noselect" } -- mostly just for cmp
 vim.opt.conceallevel = 0 -- so that `` is visible in markdown files
 vim.opt.fileencoding = "utf-8" -- the encoding written to a file
-vim.opt.hlsearch = true -- highlight all matches on previous search pattern
+vim.opt.hlsearch = false -- highlight all matches on previous search pattern
 vim.opt.ignorecase = true -- ignore case in search patterns
 vim.opt.mouse = "a" -- allow the mouse to be used in neovim
 
@@ -27,7 +28,7 @@ vim.opt.tabstop = 2 -- insert 2 spaces for a tab
 vim.opt.cursorline = true -- highlight the current line
 vim.opt.number = true -- set numbered lines
 vim.opt.relativenumber = true -- set relative numbered lines
-vim.opt.guifont = "Hack Nerd Font Mono:h15" -- the font used in graphical neovim applications
+vim.opt.guifont = "Hack Nerd Font Mono:h14" -- the font used in graphical neovim applications
 
 vim.g.netrw_browse_split = 0
 vim.cmd("set whichwrap+=<,>,[,],h,l")
