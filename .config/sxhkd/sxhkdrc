@@ -3,14 +3,14 @@
 #
 
 # terminal emulator
-super + Return
+{super,alt} + Return
 	alacritty
 
 # program launcher
-super + d
+{super,alt} + d
 	dmenu_run
 
-super + r
+{super,alt} + r
   rofi -modi drun,run -show drun
 
 # make sxhkd reload its configuration files:
@@ -91,6 +91,9 @@ super + {o,i}
 super + {_,shift + }{1-9,0}
 	bspc {desktop -f,node -d} '^{1-9,10}'
 
+alt + {_,shift + }{1-9,0}
+	bspc {desktop -f,node -d} '^{1-9,10}'
+
 #
 # preselect
 #
@@ -130,6 +133,17 @@ super + {Left,Down,Up,Right}
 # keyboard layout and language
 super + @space
   (setxkbmap -query | grep -q "layout:\s\+us") && setxkbmap ir || setxkbmap us
+
+# taking screen-shot
+super + s
+  shutter -s
+
+alt + {Left,Right}
+  bspc desktop -f {prev,next,prev,next}
+
+# Alt-Tab functionality
+alt + {Tab}
+  bspc desktop -f next.occupied
 
 # function keys and special keys (like audio, brightness and etc.)
 XF86AudioRaiseVolume 
@@ -175,12 +189,21 @@ alt + ctrl + 3
 alt + ctrl + 4
   ~/scripts/screen/external-monitor-right.sh
 
+alt + ctrl + a
+  nm-applet
+
+alt + ctrl + n
+  nm-connection-editor
+
+alt + ctrl + b
+  blueman-manager
+
 # shortcuts to open applications
 alt + b
   firefox
 
 alt + f
-  nautilus
+  pcmanfm
 
 alt + t
   telegram-desktop
@@ -192,5 +215,11 @@ alt + k
   keepassxc
 
 alt + n
-  kdesu ~/.local/bin/nekoray/nekoray
+  alacritty -e sudo ~/.local/bin/nekoray/nekoray
+
+alt + h
+  ~/.local/bin/hiddify.AppImage
+
+alt + o
+  oblivion-desktop
 

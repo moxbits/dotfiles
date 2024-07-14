@@ -80,8 +80,7 @@ nnoremap <A-k> <Esc>:m .-2<CR>==gi
 
 " Insert Mode
 " Press jk fast to exit insert mode
-inoremap jk <Esc>
-inoremap kj <Esc>
+inoremap jj <Esc>
 
 " Visual Mode
 " Stay in indent mode

@@ -5,6 +5,7 @@ dwm
 st
 slstatus
 nixos
+firefox
 
 ^/README.*
 ^/LICENSE.*

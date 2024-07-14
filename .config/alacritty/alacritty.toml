@@ -1,0 +1,24 @@
+[colors.primary]
+background = "0x000000"
+
+[env]
+TERM = "xterm-256color"
+
+[font]
+size = 17
+
+[font.bold]
+family = "Hack Nerd Font"
+style = "Bold"
+
+[font.italic]
+family = "Hack Nerd Font"
+style = "Italic"
+
+[font.normal]
+family = "Hack Nerd Font"
+style = "Regular"
+
+[window]
+decorations = "none"
+startup_mode = "Maximized"

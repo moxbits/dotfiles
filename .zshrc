@@ -1,21 +1,20 @@
 bindkey -v
 
-source ~/plugins/gitstatus/gitstatus.prompt.zsh
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-source ~/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-source ~/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/fzf/key-bindings.zsh
+source /usr/share/fzf/completion.zsh
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-if [ -n "${commands[fzf-share]}" ]; then
-  source "$(fzf-share)/key-bindings.zsh"
-  source "$(fzf-share)/completion.zsh"
-fi
+source /home/linuxbrew/.linuxbrew/opt/gitstatus/gitstatus.prompt.zsh
 
 source ~/.profile
 
 autoload -U colors && colors	# Load colors
+
 PROMPT="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]"
-PROMPT+='${GITSTATUS_PROMPT:+ $GITSTATUS_PROMPT} '
-PROMPT+="%{$fg[cyan]%}λ%b "
+PROMPT+='${GITSTATUS_PROMPT:+ $GITSTATUS_PROMPT}'
+PROMPT+=" %{$fg[cyan]%}λ%b "
 

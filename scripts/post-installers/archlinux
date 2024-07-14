@@ -1,0 +1,68 @@
+cd ~
+
+# initial update
+sudo pacman -Syu
+
+# installing
+sudo pacman -S curl wget git github-cli stow lsd base-devel cmake unzip ninja python python-pip nodejs-lts-iron npm ghc stack zsh zsh-completions zsh-syntax-highlighting zsh-autosuggestions tmux neovim luarocks fzf ripgrep arandr xsel xclip xorg-xkill tar zip unzip p7zip unrar rsync gzip xz
+
+sudo pacman -S usbutils fuse mtpfs libmtp a52dec faac faad2 flac jasper lame libdca libdv libmad libmpeg2 libtheora libvorbis libxv wavpack x264 xvidcore exfat-utils fuse-exfat gst-libav libdvdcss libdvdread libdvdnav dvd+rw-tools dvdauthor dvgrab
+
+sudo pacman -S bspwm sxhkd polybar rofi dmenu picom feh firefox alacritty telegram-desktop pcmanfm engrampa eog vlc shutter obs-studio uget keepassxc emacs chromium libreoffice-still evince calibre virtualbox wine gimp inkscape qbittorrent 
+
+sudo pacman -S tlp ufw gufw alsa-utils bluez bluez-utils blueman fprintd libfprint kde-cli-tools tor torsocks torbrowser-launcher network-manager-applet nm-connection-editor wireguard-tools openresolv openvpn openconnect pptpclient networkmanager-openconnect networkmanager-openvpn networkmanager-pptp networkmanager-l2tp network-manager-sstp 
+
+
+# TLP and power management
+sudo systemctl enable tlp
+sudo systemctl start tlp
+
+# Firewall config
+sudo systemctl enable ufw
+sudo systemctl start ufw
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw allow http
+sudo ufw allow https
+sudo ufw allow out 53
+sudo ufw allow out 67
+sudo ufw allow in 68
+sudo ufw allow 5353/udp
+sudo ufw allow samba
+sudo ufw allow 5900
+sudo ufw allow 32400/tcp
+sudo ufw enable
+
+# Bluetooth
+sudo systemctl enable bluetooth.service
+sudo systemctl start bluetooth.service
+
+# Fingerprint
+sudo systemctl enable fprintd
+sudo systemctl start fprintd
+
+# Changing the default user shell to zsh
+chsh -s $(which zsh)
+
+# Installing yay
+mkdir ~/.local/git-repos
+cd ~/.local/git-repos
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+cd ~
+
+# Installing Homebrew
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Installing appearance customization tools
+sudo pacman -S gtk3 gnome-themes-extra gnome-tweaks gnome-shell-extensions lxappearance
+
+# Installing AUR packages
+yay -S light extension-manager adwaita-qt4 adwaita-qt5-git adwaita-qt6-git
+
+# Fonts
+sudo pacman -S noto-fonts ttf-dejavu ttf-roboto ttf-joypixels nerd-fonts
+
+# Git status for zsh prompt
+brew install romkatv/gitstatus/gitstatus

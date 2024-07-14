@@ -97,7 +97,7 @@
      ("_Nginx" nginxfmt)
      ("_Snakemake" snakefmt)))
  '(package-selected-packages
-   '(ein auto-virtualenv pyvenv-auto toc-org web-mode sass-mode yaml-mode php-mode emmet-mode base16-theme help-find-org-mode doom-modeline format-all yasnippet-snippets yasnippet eterm-256color smartparens counsel-projectile general ivy-rich counsel nerd-icons-dired all-the-icons-nerd-fonts all-the-icons-ibuffer key-chord which-key vscode-dark-plus-theme rainbow-delimiters evil-leader)))
+   '(spaceline ein auto-virtualenv pyvenv-auto toc-org web-mode sass-mode yaml-mode php-mode emmet-mode base16-theme help-find-org-mode doom-modeline format-all yasnippet-snippets yasnippet eterm-256color smartparens counsel-projectile general ivy-rich counsel nerd-icons-dired all-the-icons-nerd-fonts all-the-icons-ibuffer key-chord which-key vscode-dark-plus-theme rainbow-delimiters evil-leader)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
