@@ -153,6 +153,10 @@
 #+begin_src emacs-lisp
   (use-package org
     :ensure t
+    :bind (("C-c l" . org-store-link)
+	   ("C-c a" . org-agenda)
+           ("C-c x" . org-toggle-checkbox)
+	   ("C-c c" . org-capture))
     :config
     ;; enable word wrap
     (add-hook 'org-mode-hook #'turn-on-visual-line-mode)
@@ -454,39 +458,46 @@
       :states '(normal dired-mode-map)
       :keymaps 'override
 
+      "h" 'windmove-left
+      "j" 'windmove-down
+      "k" 'windmove-up
+      "l" 'windmove-right
+
       "d" 'dired
       "f" 'find-file
-  
+
       "e c" 'open-emacs-config
-  
+
       "e t l" '(lambda ()
-	         (interactive)
-	         (find-file "~/.local/org/todo.org"))
-  
+		 (interactive)
+		 (find-file "~/.local/org/todo.org"))
+
       "e t d" '(lambda ()
-	         (interactive)
-	         (find-file "~/Dropbox/org/todo.org"))
-  
+		 (interactive)
+		 (find-file "~/Dropbox/org/todo.org"))
+
       "t c c" 'global-company-mode
       "t c f" 'set-company-full-frontend
       "t c p" 'set-company-preview-frontend
       "t c d" 'unset-company-frontends
       "t v a" 'pyvenv-activate
-  
+
       "g g" 'magit-status
-  
+
       "p" 'projectile-command-map
-  
+
       "i s" 'swiper-isearch
       "i v" 'ivy-push-view
       "i V" 'ivy-pop-view
       "i r" 'ivy-resume
-  
+
       ;; orgmode keybindings
       "o l" 'org-store-link
       "o a" 'org-agenda
       "o c" 'org-capture
-  
+      "o x" 'org-toggle-checkbox
+      "o t" 'org-todo
+
       ;; avy keybindings
       "SPC f" 'avy-goto-char
       "SPC F" 'avy-goto-char-2
@@ -494,10 +505,10 @@
       "SPC W" 'avy-goto-word-1
       "SPC j" 'avy-goto-line
       "SPC k" 'avy-goto-line
-  
+
       "b f" 'format-all-buffer
       "b s" 'ivy-switch-buffer
-  
+
       "c a f" 'counsel-describe-function
       "c a v" 'counsel-describe-variable
       "c a l" 'counsel-find-library

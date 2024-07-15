@@ -3,7 +3,7 @@
 #
 
 # terminal emulator
-{super,alt} + Return
+{super} + Return
 	alacritty
 
 # program launcher
@@ -138,12 +138,12 @@ super + @space
 super + s
   shutter -s
 
-alt + {Left,Right}
-  bspc desktop -f {prev,next,prev,next}
-
 # Alt-Tab functionality
 alt + {Tab}
   bspc desktop -f next.occupied
+
+alt + shift + {Tab}
+  bspc desktop -f prev.occupied
 
 # function keys and special keys (like audio, brightness and etc.)
 XF86AudioRaiseVolume 

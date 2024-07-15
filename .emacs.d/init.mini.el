@@ -65,6 +65,10 @@
 ;; ===== Org Mode ======
 (use-package org
   :ensure t
+  :bind (("C-c l" . org-store-link)
+         ("C-c a" . org-agenda)
+         ("C-c x" . org-toggle-checkbox)
+	 ("C-c c" . org-capture))
   :config
   ;; enable word wrap
   (add-hook 'org-mode-hook #'turn-on-visual-line-mode)
@@ -144,6 +148,11 @@
     :states '(normal dired-mode-map)
     :keymaps 'override
 
+    "h" 'windmove-left
+    "j" 'windmove-down
+    "k" 'windmove-up
+    "l" 'windmove-right
+
     "d" 'dired
     "f" 'find-file
     
@@ -158,9 +167,13 @@
 	       (find-file "~/Dropbox/org/todo.org"))
     
     ;; orgmode keybindings
+    "TAB" 'org-cycle
+    "o TAB" 'org-shifttab
     "o l" 'org-store-link
     "o a" 'org-agenda
     "o c" 'org-capture
+    "o x" 'org-toggle-checkbox
+    "o t" 'org-todo
     
     ;; avy keybindings
     "SPC f" 'avy-goto-char
