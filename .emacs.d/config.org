@@ -154,11 +154,13 @@
   (use-package org
     :ensure t
     :config
-      ;; org agenda configs
-      (setq org-agenda-files '("~/.local/org" "~/Dropbox/org"))
+    ;; enable word wrap
+    (add-hook 'org-mode-hook #'turn-on-visual-line-mode)
 
-      (setq org-todo-keywords
-	'((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!)" "CANCL(k!)"))))
+    ;; org agenda configs
+    (setq org-agenda-files '("~/.local/org" "~/Dropbox/org"))
+    (setq org-todo-keywords
+      '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!)" "CANCL(k!)"))))
 #+end_src
 
 ** Table of Content Generator
