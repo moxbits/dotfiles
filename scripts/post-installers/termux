@@ -3,5 +3,5 @@ pkg upgrade -y
 
 pkg install -y curl wget git gh stow nano vim neovim emacs nano tmux htop jq fzf grep sed tar zip unzip zsh neofetch ripgrep tree
 
-pkg install -y nodejs python python3-pip golang rust clang
+pkg install -y nodejs python python-pip golang rust clang
 
