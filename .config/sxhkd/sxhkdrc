@@ -217,8 +217,11 @@ alt + k
 alt + n
   alacritty -e sudo ~/.local/bin/nekoray/nekoray
 
+alt + q
+  alacritty -e sudo qv2ray
+
 alt + h
-  ~/.local/bin/hiddify.AppImage
+  hiddify
 
 alt + o
   oblivion-desktop

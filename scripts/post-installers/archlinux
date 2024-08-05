@@ -4,7 +4,7 @@ cd ~
 sudo pacman -Syu
 
 # installing
-sudo pacman -S curl wget git github-cli stow lsd base-devel cmake unzip ninja python python-pip nodejs-lts-iron npm ghc stack zsh zsh-completions zsh-syntax-highlighting zsh-autosuggestions tmux neovim luarocks fzf ripgrep arandr xsel xclip xorg-xkill tar zip unzip p7zip unrar rsync gzip xz
+sudo pacman -S curl wget git github-cli stow lsd base-devel cmake unzip ninja go python python-pip nodejs-lts-iron npm ghc stack zsh zsh-completions zsh-syntax-highlighting zsh-autosuggestions tmux neovim luarocks fzf ripgrep arandr xsel xclip xorg-xkill tar zip unzip p7zip unrar rsync gzip xz
 
 sudo pacman -S usbutils fuse mtpfs libmtp a52dec faac faad2 flac jasper lame libdca libdv libmad libmpeg2 libtheora libvorbis libxv wavpack x264 xvidcore exfat-utils fuse-exfat gst-libav libdvdcss libdvdread libdvdnav dvd+rw-tools dvdauthor dvgrab
 
