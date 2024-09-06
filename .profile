@@ -1,8 +1,8 @@
 export EDITOR='nvim'
 
-alias vi=vim
 alias nv=nvim
 alias lg=lazygit
+alias vi="nvim -u ~/.config/nvim/mini.lua" 
 
 # useful paths
 export PROJS=~/Documents/Projects
