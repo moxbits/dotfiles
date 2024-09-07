@@ -94,6 +94,9 @@ let
   ];
 
   utils = with pkgs; [
+    # NixOS related
+    home-manager
+
     # CLI
     neofetch
     htop
