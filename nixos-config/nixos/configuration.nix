@@ -22,7 +22,7 @@
   services.xserver.xkb = {
     layout = "us,ir";
     variant = "";
-    options = "grp:win_space_toggle"
+    options = "grp:win_space_toggle";
   };
 
   programs.light.enable = true;
