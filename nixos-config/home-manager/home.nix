@@ -39,7 +39,6 @@
   programs.home-manager.enable = true;
 
   programs.zsh.enable = true;
-  users.users.xac.shell = pkgs.zsh;
 
   programs.git.enable = true;
 
