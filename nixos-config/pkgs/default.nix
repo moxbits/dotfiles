@@ -12,7 +12,7 @@ let
 
     # Text Editors
     neovim
-    #emacs
+    emacs
 
     # Version Control
     git
@@ -24,9 +24,9 @@ let
     docker-compose
 
     # Compilers & Runtimes
-    #gcc
-    #gnumake
-    #cmake
+    gcc
+    gnumake
+    cmake
 
     lua
     luajit
@@ -34,10 +34,10 @@ let
 
     go
 
-    #cargo
-    #rustc
-    #rustup
-    #rustfmt
+    cargo
+    rustc
+    rustup
+    rustfmt
 
     nodejs
     nodePackages.npm
@@ -65,7 +65,7 @@ let
     #obs-studio
     shutter
     evince
-    #libsForQt5.okular
+    libsForQt5.okular
 
     # Files
     gnome.nautilus
@@ -80,10 +80,13 @@ let
     keepassxc
 
     # Creativity & Office
-    #gimp
-    #libreoffice
+    gimp
+    libreoffice
 
     # Proxies, VPNs & V2ray
+    tor
+    torsocks
+    tor-browser
     nekoray
     sshuttle
 
@@ -128,8 +131,8 @@ let
     light
 
     # Wine
-    #wineWowPackages.stable
-    #winetricks
+    wineWowPackages.stable
+    winetricks
 
     # Display stuff
     arandr
