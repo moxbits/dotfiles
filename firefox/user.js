@@ -4,6 +4,7 @@ user_pref("browser.startup.homepage", "about:blank");
 user_pref("browser.newtabpage.activity-stream.showSponsored", false);
 user_pref("browser.newtabpage.activity-stream.showSponsoredTopSites", false);
 user_pref("browser.newtabpage.activity-stream.default.sites", "");
+
 user_pref("geo.provider.ms-windows-location", false);
 user_pref("geo.provider.use_corelocation", false);
 user_pref("geo.provider.use_gpsd", false);
@@ -123,14 +124,8 @@ user_pref("security.tls.version.enable-deprecated", false);
 user_pref("extensions.webcompat-reporter.enabled", false);
 user_pref("extensions.quarantinedDomains.enabled", true);
 
-user_pref(
-  "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons",
-  false,
-);
-user_pref(
-  "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features",
-  false,
-);
+user_pref("browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons", false);
+user_pref("browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features", false);
 user_pref("browser.startup.homepage_override.mstone", "ignore");
 user_pref("browser.messaging-system.whatsNewPanel.enabled", false);
 user_pref("browser.urlbar.showSearchTerms.enabled", false);

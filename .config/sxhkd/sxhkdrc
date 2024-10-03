@@ -7,19 +7,23 @@
 	alacritty
 
 # program launcher
-{super,alt} + d
+{super} + d
 	dmenu_run
 
-{super,alt} + r
+{super} + r
   rofi -modi drun,run -show drun
 
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
 
-# shutdown
+# Shutdown
 alt + ctrl + shift + q
   shutdown now
+
+# Reboot
+alt + ctrl + shift + r
+  reboot
 
 #
 # bspwm hotkeys
@@ -91,9 +95,6 @@ super + {o,i}
 super + {_,shift + }{1-9,0}
 	bspc {desktop -f,node -d} '^{1-9,10}'
 
-alt + {_,shift + }{1-9,0}
-	bspc {desktop -f,node -d} '^{1-9,10}'
-
 #
 # preselect
 #
@@ -147,16 +148,16 @@ alt + shift + {Tab}
 
 # function keys and special keys (like audio, brightness and etc.)
 XF86AudioRaiseVolume 
-  pactl set-sink-volume @DEFAULT_SINK@ +10%
+  wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
 
 XF86AudioLowerVolume 
-  pactl set-sink-volume @DEFAULT_SINK@ -10%
+  wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
 
 XF86AudioMute 
-  pactl set-sink-mute @DEFAULT_SINK@ toggle
+  wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
 
 XF86AudioMicMute 
-  pactl set-source-mute @DEFAULT_SOURCE@ toggle
+  wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 
 XF86AudioPlay 
   playerctl play-pause
@@ -171,17 +172,17 @@ XF86AudioPrev
   playerctl previous
 
 XF86MonBrightnessDown 
-  light -U 10
+  brightnessctl set 5%-
 
 XF86MonBrightnessUp 
-  light -A 10
+  brightnessctl set +5%
 
 # monitor and screen layout
 alt + ctrl + 1
-  ~/scripts/screen/manjaro/laptop-monitor-only.sh
+  ~/scripts/screen/laptop-monitor-only.sh; bspc monitor HDMI-A-0 --remove; bspc monitor -d 1 2 3 4 5
 
 alt + ctrl + 2
-  ~/scripts/screen/manjaro/external-monitor-only.sh
+  ~/scripts/screen/external-monitor-only.sh; bspc monitor eDP --remove; bspc monitor HDMI-A-0 -d 1 2 3 4 5
 
 alt + ctrl + 3
   ~/scripts/screen/external-monitor-left.sh
@@ -189,14 +190,11 @@ alt + ctrl + 3
 alt + ctrl + 4
   ~/scripts/screen/external-monitor-right.sh
 
-alt + ctrl + a
-  nm-applet
-
-alt + ctrl + n
-  nm-connection-editor
+alt + ctrl + w
+  ~/scripts/wifi-connect.sh
 
 alt + ctrl + b
-  blueman-manager
+  ~/scripts/bluetooth-connect.sh
 
 # shortcuts to open applications
 alt + b
@@ -213,16 +211,4 @@ alt + e
 
 alt + k
   keepassxc
-
-alt + n
-  alacritty -e sudo ~/.local/bin/nekoray/nekoray
-
-alt + q
-  alacritty -e sudo qv2ray
-
-alt + h
-  hiddify
-
-alt + o
-  oblivion-desktop
 

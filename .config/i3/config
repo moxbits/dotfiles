@@ -35,27 +35,27 @@ bindsym XF86MonBrightnessDown exec light -U 10
 bindsym XF86MonBrightnessUp exec light -A 10
 
 # control monitors display style
-bindsym $mod+Ctrl+1 exec "/home/x/scripts/screen/manjaro/laptop-monitor-only.sh"
-bindsym $mod+Ctrl+2 exec "/home/x/scripts/screen/manjaro/external-monitor-only.sh"
-bindsym $mod+Ctrl+3 exec "/home/x/scripts/screen/external-monitor-left.sh"
-bindsym $mod+Ctrl+4 exec "/home/x/scripts/screen/external-monitor-right.sh"
+bindsym $mod+Ctrl+1 exec "~/scripts/screen/laptop-monitor-only.sh"
+bindsym $mod+Ctrl+2 exec "~/scripts/screen/external-monitor-only.sh"
+bindsym $mod+Ctrl+3 exec "~/scripts/screen/external-monitor-left.sh"
+bindsym $mod+Ctrl+4 exec "~/scripts/screen/external-monitor-right.sh"
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+t exec "alacritty"
+bindsym $mod+Return exec "alacritty"
 
 # some apps to run keymaps
 bindsym $mod+b exec "firefox"
-bindsym $mod+o exec "nautilus"
-bindsym $mod+i exec "emacs"
-bindsym $mod+c exec "telegram-desktop"
-bindsym $mod+m exec "spotify-launcher"
+bindsym $mod+n exec "pcmanfm"
+bindsym $mod+t exec "telegram-desktop"
+bindsym $mod+p exec "keepassxc"
 
-bindsym $mod+Ctrl+Return exec "~/scripts/captain-loader.sh"
-bindsym $mod+Ctrl+s exec "~/scripts/ssh-bridge.sh"
-bindsym $mod+n exec "kdesu ~/.local/bin/nekoray/nekoray"
+# scripts keybindings
+bindsym $mod+Ctrl+p exec "~/scripts/proxy-connect.sh"
+bindsym $mod+Ctrl+w exec "~/scripts/wifi-connect.sh"
+bindsym $mod+Ctrl+b exec "~/scripts/bluetooth-connect.sh"
 
 # kill focused window
 bindsym $mod+q kill
@@ -63,7 +63,7 @@ bindsym $mod+q kill
 # start dmenu (a program launcher)
 bindsym $mod+d exec --no-startup-id dmenu_run
 # A more modern dmenu replacement is rofi:
-bindsym $mod+Return exec --no-startup-id "rofi -modi drun,run -show drun"
+bindsym $mod+x exec --no-startup-id "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
 # .desktop file. It is a wrapper around dmenu, so you need that installed.
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
@@ -120,16 +120,16 @@ bindsym $mod+a focus parent
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 "TERM"
-set $ws2 "WEB"
-set $ws3 "CHAT"
-set $ws4 "FILE"
-set $ws5 "TOOL"
-set $ws6 "DATA"
-set $ws7 "AUD"
-set $ws8 "VPN"
-set $ws9 "DEV"
-set $ws10 "TEMP"
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "0"
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -162,12 +162,8 @@ bindsym $mod+Shift+Tab workspace prev
 bindsym $alt+Shift+Tab workspace prev
 
 # binding applications to workspaces
-for_window [class="firefox"] move container to workspace $ws2
-for_window [class="Telegram"] move container to workspace $ws3
-for_window [class="Pcmanfm"] move container to workspace $ws4
-for_window [class="Spotify"] move container to workspace $ws7
-for_window [class="nekoray"] move container to workspace $ws8
-for_window [class="Emacs"] move container to workspace $ws9
+#for_window [class="firefox"] move container to workspace $ws2
+#for_window [class="Telegram"] move container to workspace $ws3
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -176,7 +172,7 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+x exec --no-startup-id "i3lock -c 000000"
 bindsym $mod+Shift+e exec "i3-msg exit"
-bindsym $mod+Shift+q exec "systemctl poweroff -i"
+bindsym $mod+Shift+q exec "~/scripts/power.sh"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -205,29 +201,30 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+bindsym $mod+Ctrl+t bar mode toggle
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-# bar {
-#   	position top
-#     font pango:Hack Nerd Font 14
-#   	status_command i3status
-#     tray_padding 1
-#     strip_workspace_numbers yes
-#
-#     colors {
-#             separator  #181818
-#             background #181818
-#             statusline #b8becc
-#
-#             #                  border  backgr. text
-#             focused_workspace  #b8becc #b8becc #000000
-#             active_workspace   #181818 #252936 #5e81ac
-#             inactive_workspace #181818 #181818 #6d788f
-#             urgent_workspace   #181818 #181818 #ee829f
-#             binding_mode       #181818 #b8becc #2e3440
-#     }
-# }
+bar {
+  	position top
+    font pango:Hack Nerd Font 14
+  	status_command i3status
+    tray_padding 1
+    strip_workspace_numbers yes
+
+    colors {
+            separator  #181818
+            background #181818
+            statusline #b8becc
+
+            #                  border  backgr. text
+            focused_workspace  #b8becc #b8becc #000000
+            active_workspace   #181818 #252936 #5e81ac
+            inactive_workspace #181818 #181818 #6d788f
+            urgent_workspace   #181818 #181818 #ee829f
+            binding_mode       #181818 #b8becc #2e3440
+    }
+}
 
 # Window color settings
 # class                 border  backgr. text    indicator
@@ -243,11 +240,3 @@ for_window [class="^.*"] border pixel 1
 gaps inner 10
 gaps outer 5
 
-# Picom transparency
-exec --no-startup-id picom
-
-# Wallpaper loading
-exec --no-startup-id feh --randomize --bg-fill ~/.local/wallpapers/classic/
-
-# polybar
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh

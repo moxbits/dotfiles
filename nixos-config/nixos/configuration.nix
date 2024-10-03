@@ -9,15 +9,19 @@
       ./users.nix
     ];
 
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sda";
-  boot.loader.grub.useOSProber = true;
+
+  boot.loader.timeout = 0;
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  boot.initrd.kernelModules = [ "amdgpu" ];
 
   # Display
   services.xserver.enable = true;
+  services.xserver.videoDrivers = [ "amdgpu" ];
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
-  services.xserver.windowManager.i3.enable = true;
+  services.xserver.windowManager.bspwm.enable = true;
 
   services.xserver.xkb = {
     layout = "us,ir";
@@ -34,6 +38,9 @@
 
   time.timeZone = "Asia/Tehran";
   i18n.defaultLocale = "en_US.UTF-8";
+
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -61,6 +68,9 @@
   services.udisks2.enable = true;
 
   services.thermald.enable = true;
+
+
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # NixOS version
   system.stateVersion = "24.05";

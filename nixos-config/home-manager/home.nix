@@ -5,7 +5,9 @@
   pkgs,
   ...
 }: {
-  imports = [ ];
+  imports = [ 
+    ./appearance.nix
+  ];
 
   nixpkgs = {
     overlays = [ ];
@@ -21,26 +23,22 @@
     homeDirectory = "/home/xac";
 
     file = {
+      "scripts".source = ~/dotfiles/scripts;
       ".profile".source = ~/dotfiles/.profile;
       ".xprofile".source = ~/dotfiles/.xprofile;
       ".Xresources".source = ~/dotfiles/.Xresources;
       ".zshrc".source = ~/dotfiles/.zshrc;
       ".tmux.conf".source = ~/dotfiles/.tmux.conf;
-
-      ".config/i3".source = ~/dotfiles/.config/i3;
-      ".config/i3status".source = ~/dotfiles/.config/i3status;
+      ".config/bspwm".source = ~/dotfiles/.config/bspwm;
+      ".config/polybar".source = ~/dotfiles/.config/polybar;
+      ".config/sxhkd".source = ~/dotfiles/.config/sxhkd;
       ".config/picom".source = ~/dotfiles/.config/picom;
-
       ".config/alacritty".source = ~/dotfiles/.config/alacritty;
       ".config/nvim".source = ~/dotfiles/.config/nvim;
     };
   };
 
   programs.home-manager.enable = true;
-
-  programs.zsh.enable = true;
-
-  programs.git.enable = true;
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";

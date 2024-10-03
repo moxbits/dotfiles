@@ -1,4 +1,3 @@
 sudo nixos-rebuild switch --flake .#thinkpad-t143
 
-home-manager switch --flake .#xac@m
-
+home-manager switch --flake .#xac@m --extra-experimental-features "nix-command flakes" --impure

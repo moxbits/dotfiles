@@ -4,11 +4,15 @@ let
   devPackages = with pkgs; [
     # CLI
     zsh
-    tmux
+    zsh-completions
+    zsh-autosuggestions
+    zsh-syntax-highlighting
     fzf
+    tmux
     ripgrep
     silver-searcher
     ctags
+    alacritty
 
     # Text Editors
     neovim
@@ -62,19 +66,21 @@ let
     gnome.eog
     vlc
     feh
-    #obs-studio
+    obs-studio
     shutter
     evince
     libsForQt5.okular
 
     # Files
-    gnome.nautilus
+    pcmanfm
 
     # Audio
     pavucontrol
 
     # Downloader
     uget
+    transmission
+    yt-dlp
 
     # Password Manager
     keepassxc
@@ -82,6 +88,7 @@ let
     # Creativity & Office
     gimp
     libreoffice
+    obsidian
 
     # Proxies, VPNs & V2ray
     tor
@@ -89,11 +96,6 @@ let
     tor-browser
     nekoray
     sshuttle
-
-    # Extra
-    dmenu
-    picom
-    rofi
   ];
 
   utils = with pkgs; [
@@ -112,9 +114,16 @@ let
     file
     appimage-run
 
-    # Appearance
+    # UI & Appearance
+    polybar
+    rofi
+    dmenu
+    picom
     lxappearance
     gnome.gnome-tweaks
+
+    # Keybindings
+    sxhkd
 
     # Archives
     gnutar
@@ -124,15 +133,17 @@ let
     unzip
     gnome.file-roller
 
-    # Network & Audio & Light
+    # Network & Audio
     networkmanagerapplet
     alsa-utils
-    pavucontrol
-    light
+    playerctl
 
     # Wine
     wineWowPackages.stable
     winetricks
+
+    # Partitioning
+    gparted
 
     # Display stuff
     arandr
@@ -156,6 +167,9 @@ in
 
   programs.zsh = {
     enable = true;
+    enableCompletion = true;
+    autosuggestions.enable = true;
+    syntaxHighlighting.enable = true;
     histSize = 10000;
   };
 

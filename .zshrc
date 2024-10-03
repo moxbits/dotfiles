@@ -1,20 +1,31 @@
 bindkey -v
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-source /usr/share/fzf/key-bindings.zsh
-source /usr/share/fzf/completion.zsh
-
-source /home/linuxbrew/.linuxbrew/opt/gitstatus/gitstatus.prompt.zsh
+if [ -n "${commands[fzf-share]}" ]; then
+  source "$(fzf-share)/key-bindings.zsh"
+  source "$(fzf-share)/completion.zsh"
+fi
 
 source ~/.profile
 
 autoload -U colors && colors	# Load colors
 
-PROMPT="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]"
-PROMPT+='${GITSTATUS_PROMPT:+ $GITSTATUS_PROMPT}'
-PROMPT+=" %{$fg[cyan]%}λ%b "
+# version control status prompt
+autoload -Uz vcs_info
+
+zstyle ':vcs_info:*' enable git svn
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:*' unstagedstr ' *'
+zstyle ':vcs_info:*' stagedstr ' +'
+zstyle ':vcs_info:git:*' formats       ' %b%u%c'
+zstyle ':vcs_info:git:*' actionformats ' %b|%a%u%c'
+
+precmd() {
+  vcs_info
+}
+
+setopt prompt_subst
+
+PROMPT="%B%{$fg[blue]%}%~%{$fg[magenta]%}"
+PROMPT+='${vcs_info_msg_0_}'
+PROMPT+=" %{$fg[green]%}λ%b "
 
