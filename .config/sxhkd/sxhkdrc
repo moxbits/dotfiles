@@ -4,7 +4,7 @@
 
 # terminal emulator
 {super} + Return
-	alacritty
+	$TERM
 
 # program launcher
 {super} + d
@@ -132,7 +132,7 @@ super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
 # keyboard layout and language
-super + @space
+super + space
   (setxkbmap -query | grep -q "layout:\s\+us") && setxkbmap ir || setxkbmap us
 
 # taking screen-shot

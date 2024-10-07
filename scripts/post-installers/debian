@@ -1,0 +1,59 @@
+# Updating Debian:
+sudo apt update
+sudo apt upgrade
+
+# Installing Packages:
+# essential tools
+sudo apt install curl wget make cmake ninja-build git stow build-essential zsh fzf tree ripgrep gettext tmux htop lsd neofetch 
+
+# utils
+sudo apt install ufw net-tools xclip xsel brightnessctl playerctl zsh-autosuggestions zsh-syntax-highlighting
+ 
+# user apps
+sudo apt install firefox chromium alacritty vlc pcmanfm eog evince okular telegram-desktop gparted shutter keepassxc
+
+# window manager tools
+sudo apt install awesome awesome-extra rofi dmenu picom feh arandr lxappearance
+
+# archival tools
+sudo apt install tar zip unzip p7zip-full xz-utils
+
+# dev tools
+sudo apt install python3 python3-pip python3-venv nodejs npm
+
+# neovim
+cd .local
+mkdir src
+cd src
+git clone https://github.com/neovim/neovim
+cd neovim
+git checkout stable
+make CMAKE_BUILD_TYPE=RelWithDebInfo
+sudo make install
+cd ~
+
+# fonts
+sudo apt install fonts-noto fonts-noto-color-emoji
+
+cd Downloads
+wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.tar.xz
+wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/RobotoMono.tar.xz
+wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/DejaVuSansMono.tar.xz
+wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.tar.xz
+
+mkdir ~/.local/share/fonts
+tar -xf Hack.tar.xz -C ~/.local/share/fonts
+tar -xf RobotoMono.tar.xz -C ~/.local/share/fonts
+tar -xf DejaVuSansMono.tar.xz -C ~/.local/share/fonts
+tar -xf JetBrainsMono.tar.xz -C ~/.local/share/fonts
+
+cd ~
+
+# note: remember to execute `fc-cache -fv` after applying font configs
+
+# set default shell
+chsh -s $(which zsh)
+
+# enabling firewall
+sudo ufw enable
+

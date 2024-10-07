@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 
   repeat=true
   while [[ $repeat == true ]]

@@ -1,6 +1,5 @@
 user_pref("browser.aboutConfig.showWarning", false);
 user_pref("browser.startup.page", 3);
-user_pref("browser.startup.homepage", "about:blank");
 user_pref("browser.newtabpage.activity-stream.showSponsored", false);
 user_pref("browser.newtabpage.activity-stream.showSponsoredTopSites", false);
 user_pref("browser.newtabpage.activity-stream.default.sites", "");

@@ -1,10 +1,7 @@
 \.git
 \.gitignore
 
-dwm
-st
-slstatus
-nixos
+nixos-config
 firefox
 
 ^/README.*
