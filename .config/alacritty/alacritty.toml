@@ -18,7 +18,3 @@ style = "Italic"
 [font.normal]
 family = "Hack Nerd Font"
 style = "Regular"
-
-[window]
-decorations = "none"
-startup_mode = "Maximized"

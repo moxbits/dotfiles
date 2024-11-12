@@ -2,12 +2,9 @@ bindkey -v
 
 source ~/.profile
 
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/doc/fzf/examples/key-bindings.zsh
-source /usr/share/doc/fzf/examples/completion.zsh
-
-autoload -U colors && colors	# Load colors
+source <(fzf --zsh)
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # version control status prompt
 autoload -Uz vcs_info
@@ -24,6 +21,8 @@ precmd() {
 }
 
 setopt prompt_subst
+
+autoload -U colors && colors
 
 PROMPT="%B%{$fg[blue]%}%~%{$fg[magenta]%}"
 PROMPT+='${vcs_info_msg_0_}'

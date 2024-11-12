@@ -136,7 +136,7 @@ super + space
   (setxkbmap -query | grep -q "layout:\s\+us") && setxkbmap ir || setxkbmap us
 
 # taking screen-shot
-super + s
+alt + s
   shutter -s
 
 # Alt-Tab functionality
@@ -179,16 +179,16 @@ XF86MonBrightnessUp
 
 # monitor and screen layout
 alt + ctrl + 1
-  ~/scripts/screen/laptop-monitor-only.sh; bspc monitor HDMI-A-0 --remove; bspc monitor -d 1 2 3 4 5
+  ~/.screenlayout/laptop-monitor-only.sh; bspc monitor HDMI-A-0 --remove; bspc monitor -d 1 2 3 4 5
 
 alt + ctrl + 2
-  ~/scripts/screen/external-monitor-only.sh; bspc monitor eDP --remove; bspc monitor HDMI-A-0 -d 1 2 3 4 5
+  ~/.screenlayout/external-monitor-only.sh; bspc monitor eDP --remove; bspc monitor HDMI-A-0 -d 1 2 3 4 5
 
 alt + ctrl + 3
-  ~/scripts/screen/external-monitor-left.sh
+  ~/.screenlayout/external-monitor-left.sh
 
 alt + ctrl + 4
-  ~/scripts/screen/external-monitor-right.sh
+  ~/.screenlayout/external-monitor-right.sh
 
 alt + ctrl + w
   ~/scripts/wifi-connect.sh

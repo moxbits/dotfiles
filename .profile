@@ -13,6 +13,7 @@ alias toprojs="cd $PROJS"
 alias totests="cd $TESTS"
 
 # ------- lsd -------
+alias ls="lsd"
 alias ll="lsd --group-dirs first -l"
 alias la="lsd --group-dirs first -la"
 alias lt="lsd --group-dirs first --tree"
@@ -27,8 +28,5 @@ fi
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
-
-# adding composer binaries to the path
-export PATH="$PATH:$HOME/.composer/vendor/bin"
 
 # ------- end -------

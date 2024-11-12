@@ -5,7 +5,7 @@ return {
 		local lsp_servers = {
 			"lua_ls",
 			"jedi_language_server",
-			"tsserver",
+			"ts_ls",
 			"bashls",
 			"html",
 			"cssls",

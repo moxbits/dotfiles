@@ -30,11 +30,14 @@ vim.opt.number = true -- set numbered lines
 vim.opt.relativenumber = true -- set relative numbered lines
 vim.opt.guifont = "Hack Nerd Font Mono:h14" -- the font used in graphical neovim applications
 
+-- netrw explorer
+vim.g.netrw_banner = 0
 vim.g.netrw_browse_split = 0
+
 vim.cmd("set whichwrap+=<,>,[,],h,l")
 vim.cmd([[set iskeyword+=-]])
 
-vim.cmd("colorscheme torte") -- a fallback colorscheme
 
+vim.cmd("colorscheme retrobox")
 require("xac.utils.colorscheme").darkifyColorscheme()
 

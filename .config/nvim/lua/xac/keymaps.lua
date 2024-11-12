@@ -21,10 +21,11 @@ vim.g.maplocalleader = " "
 -- Normal --
 -- Open Neovim configuration file
 keymap("n", "<leader>ce", ":edit $MYVIMRC<CR>", merge(opts, { desc = "edit neovim configuration" }))
-keymap("n", "<leader>cr", ":source $MYVIMRC<CR>", merge(opts, { desc = "source neovim configuration" }))
+keymap("n", "<leader>cr", ":source $MYVIMRC<CR>", merge(opts, { desc = "reload neovim configuration" }))
 
 -- Explorer
-keymap("n", "<leader>e", ":NvimTreeToggle<CR>", merge(opts, { desc = "toggle nvim-tree explorer" }))
+keymap("n", "<leader>e", ":Lex<CR>", merge(opts, { desc = "toggle netrw explorer" }))
+keymap("n", "<leader>E", ":Lex %:p:h<CR>", merge(opts, { desc = "toggle netrw explorer" }))
 
 -- Window Navigation
 keymap("n", "<leader>h", "<C-w>h", merge(opts, { desc = "select left window" }))
@@ -47,9 +48,6 @@ keymap("n", "<leader>bj", ":bprevious<CR>", merge(opts, { desc = "go to previous
 keymap("n", "<leader>bl", ":blast<CR>", merge(opts, { desc = "go to last buffer" }))
 keymap("n", "<leader>bt", ":term<CR>", merge(opts, { desc = "open a terminal mode" }))
 keymap("n", "<leader>bg", ":Neogit<CR>", merge(opts, { desc = "open neogit buffer" }))
-
--- Delete without yanking
-keymap("n", "<leader>d", '"_d', merge(opts, { desc = "delete without yank" }))
 
 -- Move text up and down
 keymap("n", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
