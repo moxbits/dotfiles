@@ -28,7 +28,7 @@ vim.opt.tabstop = 2 -- insert 2 spaces for a tab
 vim.opt.cursorline = true -- highlight the current line
 vim.opt.number = true -- set numbered lines
 vim.opt.relativenumber = true -- set relative numbered lines
-vim.opt.guifont = "Hack Nerd Font Mono:h14" -- the font used in graphical neovim applications
+vim.opt.guifont = "JetBrainsMono Nerd Font:h18" -- the font used in graphical neovim applications
 
 -- netrw explorer
 vim.g.netrw_banner = 0

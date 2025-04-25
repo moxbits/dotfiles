@@ -1,6 +1,6 @@
 return {
 	"neovim/nvim-lspconfig",
-	dependencies = { "williamboman/mason-lspconfig.nvim", "hrsh7th/cmp-nvim-lsp", "hrsh7th/nvim-cmp" },
+	dependencies = { "williamboman/mason-lspconfig.nvim" },
 	config = function()
 		local lsp_servers = {
 			"lua_ls",
@@ -33,7 +33,6 @@ return {
 			vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>gR", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 			vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
 
-			-- diagnostics keybindings
 			vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>io", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
 			vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>i[", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
 			vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>i]", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
@@ -59,7 +58,6 @@ return {
 
 		local opts = {
 			on_attach = on_attach,
-			capabilities = require("cmp_nvim_lsp").default_capabilities(),
 		}
 
 		for _, server in ipairs(lsp_servers) do

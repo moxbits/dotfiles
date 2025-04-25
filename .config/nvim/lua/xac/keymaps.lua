@@ -20,7 +20,8 @@ vim.g.maplocalleader = " "
 
 -- Normal --
 -- Open Neovim configuration file
-keymap("n", "<leader>ce", ":edit $MYVIMRC<CR>", merge(opts, { desc = "edit neovim configuration" }))
+local config_path = vim.api.nvim_call_function('stdpath', {'config'})
+keymap("n", "<leader>ce", string.format(":cd %s | edit init.lua<CR>", config_path), merge(opts, { desc = "edit neovim configuration" }))
 keymap("n", "<leader>cr", ":source $MYVIMRC<CR>", merge(opts, { desc = "reload neovim configuration" }))
 
 -- Explorer
