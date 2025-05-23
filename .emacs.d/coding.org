@@ -1,0 +1,165 @@
+
+* Emacs to Powerful IDE
+
+** Indentations
+#+begin_src emacs-lisp
+  (electric-indent-mode +1)
+  (setq web-indent-level 2)
+  (setq html-indent-level 2)
+  (setq sgml-indent-level 2)
+  (setq css-indent-level 2)
+  (setq typescript-indent-level 2)
+  (setq javascript-indent-level 2)
+  (setq js-indent-level 2)
+  (setq python-indent-level 4)
+#+end_src
+
+** Extra Programming Language modes
+
+#+begin_src emacs-lisp
+  (use-package php-mode
+    :ensure t
+    :mode ("\\.php\\'" . php-mode))
+
+  (use-package yaml-mode
+    :ensure t
+    :mode ("\\.\\(yml\\|yaml\\)\\'" . yaml-mode))
+
+  (use-package sass-mode
+    :ensure t
+    :mode ("\\.sass\\'" . sass-mode))
+#+end_src
+
+
+** LSP
+#+begin_src emacs-lisp
+  (use-package lsp-mode
+    :ensure t
+    :init
+    (add-to-list 'load-path (expand-file-name "lib/lsp-mode" user-emacs-directory))
+    (add-to-list 'load-path (expand-file-name "lib/lsp-mode/clients" user-emacs-directory))
+    :hook ((prog-mode . (lambda ()
+                          (unless (or (eq major-mode 'emacs-lisp-mode) 
+                                      (eq major-mode 'python-mode))
+                            (lsp))))
+           (php-mode . lsp)
+           (kotlin-mode . lsp)
+           (yaml-mode . lsp)
+           (sass-mode . lsp))
+    :config
+    (setq lsp-keymap-prefix "C-c l")
+    (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration))
+  
+  (use-package lsp-ui
+    :ensure t
+    :commands lsp-ui-mode)
+  
+  (use-package lsp-ivy
+    :ensure t
+    :commands lsp-ivy-workspace-symbol)
+  
+  (use-package lsp-treemacs
+    :ensure t
+    :commands lsp-treemacs-errors-list)
+#+end_src
+
+** Linting
+#+begin_src emacs-lisp
+  (use-package flycheck
+    :ensure t
+    :config
+    (global-flycheck-mode))
+#+end_src
+
+** Auto-Completion
+#+begin_src emacs-lisp
+  (use-package company
+    :ensure t
+    :bind (:map company-active-map
+                ("<tab>" . company-complete-selection)
+                :map lsp-mode-map
+                ("<tab>" . company-indent-or-complete-common))
+    :config
+    (global-company-mode 1)
+    (setq-default
+     company-idle-delay 0.05
+     company-require-match nil
+     company-minimum-prefix-length 0
+     company-frontends nil)
+  
+    (defun set-company-full-frontend ()
+      (interactive)
+      (setq company-frontends '(company-pseudo-tooltip-frontend company-preview-frontend)))
+  
+    (defun set-company-preview-frontend ()
+      (interactive)
+      (setq company-frontends '(company-preview-frontend)))
+  
+    (defun unset-company-frontends ()
+      (interactive)
+      (setq company-frontends nil)))
+#+end_src
+
+** Formatting
+#+begin_src emacs-lisp
+  (use-package format-all
+    :ensure t
+    :bind (("M-F" . format-all-buffer))
+    :config
+    (add-to-list 'format-all-formatters '("HTML" prettier)))
+#+end_src
+
+** Snippets
+#+begin_src emacs-lisp
+  (use-package yasnippet
+    :ensure t
+    :config
+    (yas-global-mode 1))
+  
+  (use-package yasnippet-snippets
+    :ensure t
+    :after yasnippet)
+#+end_src
+
+** Web Mode
+#+begin_src emacs-lisp
+  (use-package web-mode
+    :ensure t
+    :mode (("\\.html\\'" . web-mode)
+           ("\\.phtml\\'" . web-mode)
+           ("\\.tpl\\.php\\'" . web-mode)
+           ("\\.[agj]sp\\'" . web-mode)
+           ("\\.as[cp]x\\'" . web-mode)
+           ("\\.erb\\'" . web-mode)
+           ("\\.mustache\\'" . web-mode)
+           ("\\.djhtml\\'" . web-mode)))
+#+end_src
+
+** Python Extra Configs
+#+begin_src emacs-lisp
+  (use-package pyvenv
+    :ensure t
+    :hook (python-mode . pyvenv-mode)
+    :config
+    (add-hook 'pyvenv-post-activate-hooks 'lsp))
+#+end_src
+
+** Emmet Support
+#+begin_src emacs-lisp
+  (use-package emmet-mode
+    :ensure t
+    :hook ((web-mode sgml-mode css-mode php-mode) . emmet-mode)
+    :config
+    (add-to-list 'emmet-jsx-major-modes 'jsx-mode)
+    (add-to-list 'emmet-jsx-major-modes 'rjsx-mode))
+#+end_src
+
+** EIN
+#+begin_src emacs-lisp
+  (use-package ein
+    :ensure t)
+#+end_src
+
+** Debugger (Still not configured)
+
+

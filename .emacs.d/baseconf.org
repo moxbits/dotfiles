@@ -1,27 +1,3 @@
-#+TITLE: X Emacs Config Document
-#+AUTHOR: Mohammad Elahi
-#+DESCRIPTION: Mohammad Elahi
-#+OPTIONS: toc:2
-
-* TABLE OF CONTENTS                                                     :toc:
-- [[#packages][Packages]]
-  - [[#initializing-packages-repos-and-package-manager][Initializing Packages Repos and Package Manager]]
-- [[#basic-configurations][Basic Configurations]]
-  - [[#basic-configs][Basic Configs]]
-  - [[#tweaking-more][Tweaking More]]
-  - [[#indentations][Indentations]]
-  - [[#theme][Theme]]
-- [[#org-mode][Org Mode]]
-  - [[#the-holy-org-setup][The Holy Org Setup]]
-  - [[#table-of-content-generator][Table of Content Generator]]
-- [[#keybindings][Keybindings]]
-  - [[#before-binding-keys][Before binding keys]]
-  - [[#evil-mode][Evil Mode]]
-  - [[#general-custom-bindings][General Custom Bindings]]
-- [[#extra-packages][Extra Packages]]
-  - [[#git-integration][Git Integration]]
-  - [[#which-key-helper][Which Key Helper]]
-  - [[#smart-parenthesis][Smart Parenthesis]]
 
 * Packages
 
@@ -54,17 +30,14 @@
   (defalias 'yes-or-no-p 'y-or-n-p)
 
   (setq inhibit-startup-screen t)
-
-  (when (fboundp 'menu-bar-mode)
-    (menu-bar-mode -1))   ; Disable the menu bar
-
-  (when (fboundp 'tool-bar-mode)
-    (tool-bar-mode -1))   ; Disable the tool bar
-
-  (when (fboundp 'scroll-bar-mode)
-    (scroll-bar-mode -1)) ; Disable the scroll bar
-
   (setq ring-bell-function 'ignore)
+
+  ;; Disable menu bar, tool bar, and scroll bar only in GUI mode
+  (when (display-graphic-p)
+    (add-to-list 'initial-frame-alist '(fullscreen . maximized))
+    (menu-bar-mode -1)    ; Disable the menu bar
+    (tool-bar-mode -1)    ; Disable the tool bar
+    (scroll-bar-mode -1)) ; Disable the scroll bar
 
   ;; Disable the creation of backup files
   (setq make-backup-files nil)    ;; stop creating backup~ files
@@ -74,12 +47,14 @@
 
 ** Tweaking More
 #+begin_src emacs-lisp
+  ;; (set-frame-parameter (selected-frame) 'alpha 0.85)
+
   (setq display-line-numbers-type 'relative)
 
   (global-display-line-numbers-mode)
 
   (set-face-attribute 'default nil
-	:family "Hack Nerd Font"
+	:family "FiraCode Nerd Font"
 	:height 200)
 
   (setq dired-listing-switches  "-agho --group-directories-first")
@@ -89,20 +64,15 @@
   (add-hook 'term-mode-hook 'eterm-256color-mode)
 
   ;; Ensure all characters can be displayed
-  (use-package all-the-icons
-    :ensure t)
+  (use-package all-the-icons :ensure t)
+  (use-package all-the-icons-dired :ensure t)
+  (use-package all-the-icons-nerd-fonts :ensure t)
 
   (use-package emojify
     :ensure t
     :config
     (global-emojify-mode 1))
 #+end_src
-
-** Indentations
-#+begin_src emacs-lisp
-  (electric-indent-mode +1)
-#+end_src
-
 
 ** Theme
 #+begin_src emacs-lisp
@@ -114,32 +84,71 @@
     '(line-number-current-line ((t (:background "black")))))
 #+end_src
 
-* Org Mode
 
-** The Holy Org Setup
+* Files and Projects Navigation and Completion Framework
+
+** Setting Ivy Up
 #+begin_src emacs-lisp
-  (use-package org
+  ;; Ivy
+  (use-package ivy
     :ensure t
-    :bind (("C-c l" . org-store-link)
-	   ("C-c a" . org-agenda)
-           ("C-c x" . org-toggle-checkbox)
-	   ("C-c c" . org-capture))
+    :bind (("C-s" . swiper)
+           :map ivy-minibuffer-map
+           ("TAB" . ivy-alt-done)
+           ("C-l" . ivy-alt-done)
+           ("C-j" . ivy-next-line)
+           ("C-k" . ivy-previous-line)
+           :map ivy-switch-buffer-map
+           ("C-k" . ivy-previous-line)
+           ("C-l" . ivy-done)
+           ("C-d" . ivy-switch-buffer-kill)
+           :map ivy-reverse-i-search-map
+           ("C-k" . ivy-previous-line)
+           ("C-d" . ivy-reverse-i-search-kill))
     :config
-    ;; enable word wrap
-    (add-hook 'org-mode-hook #'turn-on-visual-line-mode)
-
-    ;; org agenda configs
-    (setq org-agenda-files '("~/.local/org" "~/xnotes/org" "~/Dropbox/org"))
-    (setq org-todo-keywords
-      '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d!)" "CANCL(k!)"))))
-#+end_src
-
-** Table of Content Generator
-#+begin_src emacs-lisp
-  (use-package toc-org
+    (ivy-mode 1))
+  
+  ;; Ivy-Rich
+  (use-package ivy-rich
     :ensure t
-    :hook (org-mode . toc-org-enable))
+    :after ivy
+    :config
+    (ivy-rich-mode 1))
 #+end_src
+
+** Where is My Counsel?
+#+begin_src emacs-lisp
+  (use-package counsel
+    :ensure t
+    :bind (("C-M-j" . counsel-switch-buffer)
+	   :map minibuffer-local-map
+	   ("C-r" . counsel-minibuffer-history))
+    :config
+    (counsel-mode 1))
+#+end_src
+
+** Launch the Projectile
+#+begin_src emacs-lisp
+  (use-package projectile
+    :ensure t
+    :init
+    (setq projectile-completion-system 'ivy)
+    :config
+    (projectile-mode 1)
+    (when (file-directory-p "~/projects")
+      (setq projectile-project-search-path '("~/projects" "~/work")))
+    (setq projectile-switch-project-action #'projectile-dired)
+    :bind-keymap
+    ("C-c p" . projectile-command-map))
+  
+  (use-package counsel-projectile
+    :ensure t
+    :after (projectile counsel)
+    :config
+    (counsel-projectile-mode 1))
+#+end_src
+
+
 
 * Keybindings
 
@@ -148,58 +157,7 @@
   (defun open-emacs-config ()
     "Open your Emacs configuration file."
     (interactive)
-    (find-file (expand-file-name "~/.emacs.d/config.mini.org")))
-
-  (defun open-xnotes-todo ()
-    "Open the Xnotes TODO file."
-    (interactive)
-    (find-file "~/xnotes/org/todo.org"))
-
-  (defun open-local-todo ()
-    "Open the local TODO file."
-    (interactive)
-    (find-file "~/.local/org/todo.org"))
-
-  (defun open-local-notes ()
-    "Open the local notes directory."
-    (interactive)
-    (dired "~/.local/org/"))
-
-  (defun open-xnotes ()
-    "Open the Xnotes directory."
-    (interactive)
-    (dired "~/xnotes/"))
-
-  (defun open-dropbox-notes ()
-    "Open the Dropbox notes directory."
-    (interactive)
-    (dired "~/Dropbox/org/"))
-
-  (defun push-xnotes-git ()
-    "Stage all xnotes changes, commit with message 'Update Notes', and push to the remote repository."
-    (interactive)
-    (let ((default-directory "~/xnotes/"))
-      (if (file-exists-p (expand-file-name ".git" default-directory)) ; Check if it's a Git repo
-	  (progn
-	    (if (zerop (call-process "git" nil nil nil "add" ".")) ; Stage all changes
-		(if (zerop (call-process "git" nil nil nil "commit" "-m" "Update Notes")) ; Commit with message
-		    (if (zerop (call-process "git" nil nil nil "push")) ; Push to remote
-			(message "Changes committed and pushed.")
-		      (message "Git push failed."))
-		  (message "Git commit failed."))
-	      (message "Git add failed."))
-	    )
-	(message "Not in a Git repository."))))
-
-  (defun pull-xnotes-git ()
-    "Pull the latest changes from the remote Git repository."
-    (interactive)
-    (let ((default-directory "~/xnotes/"))
-      (if (file-exists-p (expand-file-name ".git" default-directory)) ; Check if it's a Git repo
-	  (if (zerop (call-process "git" nil nil nil "pull")) ; Pull latest changes
-	      (message "Successfully pulled the latest changes.")
-	    (message "Git pull failed."))
-	(message "Not in a Git repository."))))
+    (find-file (expand-file-name "~/.emacs.d/baseconf.org")))
 
   (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 #+end_src
@@ -269,20 +227,30 @@
 
       "e c" 'open-emacs-config
 
+      "e t l" '(lambda ()
+		 (interactive)
+		 (find-file "~/.local/org/todo.org"))
+
+      "e t d" '(lambda ()
+		 (interactive)
+		 (find-file "~/Dropbox/org/todo.org"))
+
+      "t c c" 'global-company-mode
+      "t c f" 'set-company-full-frontend
+      "t c p" 'set-company-preview-frontend
+      "t c d" 'unset-company-frontends
+      "t v a" 'pyvenv-activate
+
       "g g" 'magit-status
 
-      ;; notes
-      "t" 'open-xnotes-todo
-      "n t" 'open-local-todo
-      "n l" 'open-local-notes
-      "n x" 'open-xnotes
-      "n p" 'pull-xnotes-git
-      "n P" 'push-xnotes-git
-      "n d" 'open-dropbox-notes
+      "p" 'projectile-command-map
+
+      "i s" 'swiper-isearch
+      "i v" 'ivy-push-view
+      "i V" 'ivy-pop-view
+      "i r" 'ivy-resume
 
       ;; orgmode keybindings
-      "TAB" 'org-cycle
-      "o TAB" 'org-shifttab
       "o l" 'org-store-link
       "o a" 'org-agenda
       "o c" 'org-capture
@@ -295,7 +263,31 @@
       "SPC w" 'avy-goto-word-0
       "SPC W" 'avy-goto-word-1
       "SPC j" 'avy-goto-line
-      "SPC k" 'avy-goto-line))
+      "SPC k" 'avy-goto-line
+
+      "b f" 'format-all-buffer
+      "b s" 'ivy-switch-buffer
+
+      "c a f" 'counsel-describe-function
+      "c a v" 'counsel-describe-variable
+      "c a l" 'counsel-find-library
+      "c a i" 'counsel-info-lookup-symbol
+      "c a u" 'counsel-unicode-char
+      "c a j" 'counsel-set-variable
+      "c c" 'counsel-compile
+      "c j" 'counsel-git-grep
+      "c L" 'counsel-git-log
+      "c l" 'counsel-locate
+      "c b" 'counsel-bookmark
+      "c g" 'counsel-git
+      "c t" 'counsel-load-theme
+      "c y" 'counsel-yank-pop
+      "c f" 'counsel-find-file
+      "c z" 'counsel-fzf
+      "c r" 'counsel-rg
+      "c j" 'counsel-file-jump
+      "c F" 'counsel-org-file
+      "c m" 'counsel-find-file-run-immediate))
 #+end_src
 
 

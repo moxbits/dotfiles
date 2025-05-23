@@ -21,6 +21,15 @@ sudo apt install tar zip unzip p7zip-full xz-utils
 # dev tools
 sudo apt install python3 python3-pip python3-venv nodejs npm
 
+# fonts
+sudo apt install fonts-noto fonts-noto-color-emoji
+
+# set default shell
+chsh -s $(which zsh)
+
+# enabling firewall
+sudo ufw enable
+
 # neovim
 cd .local
 mkdir src
@@ -32,9 +41,7 @@ make CMAKE_BUILD_TYPE=RelWithDebInfo
 sudo make install
 cd ~
 
-# fonts
-sudo apt install fonts-noto fonts-noto-color-emoji
-
+# extra fonts
 cd Downloads
 wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Hack.tar.xz
 wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/RobotoMono.tar.xz
@@ -48,12 +55,5 @@ tar -xf DejaVuSansMono.tar.xz -C ~/.local/share/fonts
 tar -xf JetBrainsMono.tar.xz -C ~/.local/share/fonts
 
 cd ~
-
+fc-cache -fv
 # note: remember to execute `fc-cache -fv` after applying font configs
-
-# set default shell
-chsh -s $(which zsh)
-
-# enabling firewall
-sudo ufw enable
-
