@@ -4,16 +4,21 @@ sudo apt upgrade
 
 # Installing Packages:
 # essential tools
-sudo apt install curl wget make cmake ninja-build git stow build-essential zsh fzf tree ripgrep gettext tmux htop lsd neofetch 
+sudo apt install curl wget make cmake ninja-build git gh stow build-essential zsh fzf tree ripgrep gettext tmux htop lsd neofetch 
 
 # utils
 sudo apt install ufw net-tools xclip xsel brightnessctl playerctl zsh-autosuggestions zsh-syntax-highlighting
  
 # user apps
-sudo apt install firefox chromium alacritty vlc pcmanfm eog evince okular telegram-desktop gparted shutter keepassxc
+sudo apt install librewolf chromium vlc pcmanfm eog evince okular telegram-desktop gparted shutter keepassxc
+
+# installing librewolf
+sudo apt update && sudo apt install extrepo -y
+sudo extrepo enable librewolf
+sudo apt update && sudo apt install librewolf -y
 
 # window manager tools
-sudo apt install awesome awesome-extra rofi dmenu picom feh arandr lxappearance
+sudo apt install rofi picom feh arandr lxappearance
 
 # archival tools
 sudo apt install tar zip unzip p7zip-full xz-utils
