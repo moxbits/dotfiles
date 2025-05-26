@@ -42,6 +42,3 @@ vim.cmd([[set iskeyword+=-]])
 
 require("xac.utils.commands")
 
-vim.cmd("colorscheme retrobox")
-require("xac.utils.colorscheme").darkifyColorscheme()
-

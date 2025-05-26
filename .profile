@@ -1,4 +1,4 @@
-export TERM='alacritty'
+export TERM='st'
 export EDITOR='nvim'
 
 alias nv=nvim
