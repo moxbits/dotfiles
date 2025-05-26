@@ -4,11 +4,14 @@ sudo apt upgrade
 
 # Installing Packages:
 # essential tools
-sudo apt install curl wget make cmake ninja-build git gh stow build-essential zsh fzf tree ripgrep gettext tmux htop lsd neofetch 
+sudo apt install curl wget build-essential make cmake ninja-build git gh stow zsh fzf tree ripgrep gettext tmux htop lsd
 
 # utils
-sudo apt install ufw net-tools xclip xsel brightnessctl playerctl zsh-autosuggestions zsh-syntax-highlighting
+sudo apt install net-tools xclip xsel
  
+# required for building suckless apps
+sudo apt install libx11-dev libxft-dev libxext-dev fonts-noto-color-emoji
+
 # user apps
 sudo apt install librewolf chromium vlc pcmanfm eog evince okular telegram-desktop gparted shutter keepassxc
 
@@ -18,7 +21,10 @@ sudo extrepo enable librewolf
 sudo apt update && sudo apt install librewolf -y
 
 # window manager tools
-sudo apt install rofi picom feh arandr lxappearance
+sudo apt install picom feh arandr lxappearance
+
+# firewall
+sudo apt install ufw
 
 # archival tools
 sudo apt install tar zip unzip p7zip-full xz-utils
@@ -62,3 +68,4 @@ tar -xf JetBrainsMono.tar.xz -C ~/.local/share/fonts
 cd ~
 fc-cache -fv
 # note: remember to execute `fc-cache -fv` after applying font configs
+
