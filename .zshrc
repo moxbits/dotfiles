@@ -2,8 +2,6 @@ bindkey -v
 
 source ~/.profile
 
-source <(fzf --zsh)
-
 # version control status prompt
 autoload -Uz vcs_info
 

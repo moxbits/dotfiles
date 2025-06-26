@@ -41,4 +41,6 @@ vim.cmd("set whichwrap+=<,>,[,],h,l")
 vim.cmd([[set iskeyword+=-]])
 
 require("xac.utils.commands")
+require("xac.utils.colorscheme").darkifyColorscheme()
+
 

@@ -1,11 +1,10 @@
 export TERM='st'
 export EDITOR='nvim'
 
-alias vi=nvim
-alias nv=nvim
 alias lg=lazygit
+alias vi=nvim
+alias nv="nvim -u ~/.config/nvim/full.lua"
 alias vii="nvim -u ~/.config/nvim/full.lua" 
-alias nvim="nvim -u ~/.config/nvim/full.lua" 
 
 # useful paths
 export PROJS=~/Documents/Projects
