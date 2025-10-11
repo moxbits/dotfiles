@@ -6,12 +6,6 @@ sudo apt upgrade
 # essential tools
 sudo apt install curl wget build-essential make cmake ninja-build git tig gh stow zsh fzf tree ripgrep gettext tmux htop lsd
 
-# if core minimal debian is installed:
-sudo apt install xorg fontconfig
-
-# utils
-sudo apt install net-tools xclip xsel
- 
 # required for building suckless apps
 sudo apt install libx11-dev libxft-dev libxinerama-dev libxext-dev 
 
@@ -26,11 +20,8 @@ sudo apt update && sudo apt install librewolf -y
 # window manager tools
 sudo apt install picom feh arandr lxappearance
 
-# firewall
-sudo apt install ufw
-
 # archival tools
-sudo apt install tar zip unzip p7zip-full xz-utils
+sudo apt install tar zip unzip p7zip-full
 
 # dev tools
 sudo apt install python3 python3-pip python3-venv nodejs npm
@@ -40,20 +31,6 @@ sudo apt install fonts-noto fonts-noto-color-emoji
 
 # set default shell
 chsh -s $(which zsh)
-
-# enabling firewall
-sudo ufw enable
-
-# neovim
-cd .local
-mkdir src
-cd src
-git clone https://github.com/neovim/neovim
-cd neovim
-git checkout stable
-make CMAKE_BUILD_TYPE=RelWithDebInfo
-sudo make install
-cd ~
 
 # extra fonts
 cd Downloads
@@ -71,4 +48,26 @@ tar -xf JetBrainsMono.tar.xz -C ~/.local/share/fonts
 cd ~
 fc-cache -fv
 # note: remember to execute `fc-cache -fv` after applying font configs
+
+
+# if core minimal debian is installed:
+# display server and display related stuff
+sudo apt install xorg xclip xsel fontconfig gnome-themes-extra
+
+# audio servers and enabling them
+sudo apt install pipewire pipewire-alsa pipewire-audio wireplumber
+systemctl --user enable pipewire pipewire.socket wireplumber
+systemctl --user start pipewire pipewire.socket wireplumber
+
+# firewall and its configuration
+sudo apt install ufw
+
+# firewall rules
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw allow in on tun0  # For VPN tunnel interface (OpenVPN)
+sudo ufw allow in on wg0   # For WireGaurd
+
+# activate firewall
+sudo ufw enable
 
