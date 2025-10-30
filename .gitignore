@@ -7,3 +7,10 @@
 .local/share/fonts/
 .config/lazygit/state.yml
 .config/nvim/lazy-lock.json
+
+st/st
+st/*.o
+st/*.orig
+st/patches/
+st/compile_flags.txt
+
